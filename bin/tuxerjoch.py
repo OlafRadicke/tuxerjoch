@@ -14,13 +14,51 @@ rc.setDB("erstedb")
 #print("content: ")
 #print(content)
 
-respon = rc.createDB("test_db2")
+# create database
+print("--------createDB---------")
+respon = rc.createDB("erstedb")
 print(respon.headers)
-print(respon.text) # or r.json()
-print( rc.getUUID() )
+print(respon.text)
 
-json_data = '{"title":"There is Nothing Left to Lose","artist":"Foo Fighters"}'
-rc.insertDoc(json_data)
+# get a UUID
+#print( rc.getUUID() )
 
-##print(resp)
-#print(content)
+# Add a json document
+print("-------insertDoc----------")
+json_data = '{"title":"Goldbergvariationen","artist":"Bach"}'
+respon = rc.insertDoc(json_data)
+print(respon.headers)
+print(respon.text)
+
+
+# Add a json document
+print("-------insertDoc----------")
+json_data = '{"title":"3. Symphony","artist":"Bethoven"}'
+respon = rc.insertDoc(json_data)
+print(respon.headers)
+print(respon.text)
+
+# get all documents
+print("-------getAllDocs----------")
+respon = rc.getAllDocs()
+print(respon.headers)
+print(respon.text)
+
+# Search documents
+print("-------searchDocs----------")
+json_data = '{"artist": ["Bach"]}'
+respon = rc.searchDocs(json_data)
+print(respon.headers)
+print(respon.text)
+
+# Get all databes names
+print("-------getAllDBs----------")
+respon = rc.getAllDBs()
+print(respon.headers)
+print(respon.text)
+
+# delete db
+print("--------deleteDB---------")
+respon = rc.deleteDB("erstedb")
+print(respon.headers)
+print(respon.text)

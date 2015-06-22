@@ -13,3 +13,4 @@ docker pull fedora/couchdb
 
 http://docs.couchdb.org/en/1.6.1/intro/api.html
 
+http://www.pythonforbeginners.com/requests/using-requests-in-python
