@@ -38,6 +38,21 @@ respon = rc.insertDoc(json_data)
 print(respon.headers)
 print(respon.text)
 
+
+# Add a json document
+print("-------insertDoc----------")
+json_data = '{"title":"Kleine Nachtmusik","artist":"Mozart"}'
+respon = rc.insertNamedDoc("kleine_nachtmosik", json_data)
+print(respon.headers)
+print(respon.text)
+
+
+# Get value of a json document
+print("-------getDocValue----------")
+respon = rc.getDocValue("kleine_nachtmosik")
+print(respon.headers)
+print(respon.text)
+
 # get all documents
 print("-------getAllDocs----------")
 respon = rc.getAllDocs()
@@ -54,6 +69,18 @@ print(respon.text)
 # Get all databes names
 print("-------getAllDBs----------")
 respon = rc.getAllDBs()
+print(respon.headers)
+print(respon.text)
+
+# Add design
+print("-------addDesign----------")
+respon = rc.addDesign()
+print(respon.headers)
+print(respon.text)
+
+# get design
+print("-------getDesign----------")
+respon = rc.getDesign()
 print(respon.headers)
 print(respon.text)
 
