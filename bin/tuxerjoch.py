@@ -97,6 +97,13 @@ respon = rc.getNamedDesign("by_artist_name")
 print(respon.headers)
 print(respon.text)
 
+# Get temporary view
+print("-------getTempView----------")
+json_doc = "{ \"map\" : \"function(doc) { if (doc.artist == 'Mozart') { emit(null, doc.title); } }\" }"
+respon = rc.getTempView(json_doc)
+print(respon.headers)
+print(respon.text)
+
 # Get all databes names
 print("-------getAllDBs----------")
 respon = rc.getAllDBs()

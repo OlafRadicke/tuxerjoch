@@ -29,64 +29,65 @@ class RestCouch:
     def setDB(self, name):
         self.databese = name
 
-    def doGET(self, uir_path):
+    def doGET(self, uri_path):
     ##
     # A GET-Request
-    # @param uir_path the uri path
+    # @param uri_path the uri path
 
         #h = httplib2.Http(".cache")
         h = httplib2.Http()
-        return h.request("http://" + self.uri_host + ":" + self.uri_port + uir_path, "GET")
+        return h.request("http://" + self.uri_host + ":" + self.uri_port + uri_path, "GET")
 
 
-    def doGET2(self, uir_path):
+    def doGET2(self, uri_path):
     ##
     # A GET-Request
-    # @param uir_path the uri path
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uir_path
+    # @param uri_path the uri path
+        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         print(requeststring)
         headers = {'content-type': 'application/json'}
         return requests.get(requeststring, auth=(self.user, self.password), headers=headers)
 
-    def doPUT(self, uir_path):
+    def doPUT(self, uri_path):
     ##
     # A PUT-Request
-    # @param uir_path the uri path
+    # @param uri_path the uri path
 
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uir_path
+        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         print(requeststring)
         return requests.put(requeststring, auth=(self.user, self.password))
 
-    def doPUT2(self, uir_path, json_doc):
+    def doPUT2(self, uri_path, json_doc):
     ##
     # A PUT-Request
-    # @param uir_path the uri path
+    # @param uri_path the uri path
     # @param json_doc a json document
 
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uir_path
+        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         print(requeststring)
         print(json_doc)
         return requests.put(requeststring, auth=(self.user, self.password), data=json_doc)
 
-    def doDELETE(self, uir_path):
+    def doDELETE(self, uri_path):
     ##
     # A DELETE-Request
-    # @param uir_path the uri path
+    # @param uri_path the uri path
 
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uir_path
+        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         print(requeststring)
         return requests.delete(requeststring, auth=(self.user, self.password))
 
-    def doPOST(self, uir_path, json_doc):
+    def doPOST(self, uri_path, json_doc):
     ##
     # A Post-Request
-    # @param uir_path the uri path
+    # @param uri_path the uri path
     # @param json_doc a json document
 
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uir_path
+        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        headers = {'content-type': 'application/json'}
         print(requeststring)
         print(json_doc)
-        return requests.post(requeststring, auth=(self.user, self.password), data=json_doc)
+        return requests.post(requeststring, auth=(self.user, self.password), data=json_doc, headers=headers)
 
 
     def createDB(self, db_name):
@@ -172,3 +173,7 @@ class RestCouch:
         print(json_doc)
         return self.doPUT2(uri_path, json_doc)
 
+    def getTempView(self, json_doc):
+        ## Get a teporary view
+        uri_path = "/" + self.databese + "/_temp_view"
+        return self.doPOST(uri_path, json_doc)
