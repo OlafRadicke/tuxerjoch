@@ -25,7 +25,7 @@ print(respon.text)
 
 # Add a json document
 print("-------insertDoc----------")
-json_data = '{"Type": "artist", "title":"Goldbergvariationen","artist":"Bach"}'
+json_data = '{"Type": "artist", "title":"Goldbergvariationen","artist":"Bach", "tags": ["eins","zwei","drei"]}'
 respon = rc.insertDoc(json_data)
 print(respon.headers)
 print(respon.text)
@@ -100,6 +100,13 @@ print(respon.text)
 # Get temporary view
 print("-------getTempView----------")
 json_doc = "{ \"map\" : \"function(doc) { if (doc.artist == 'Mozart') { emit(null, doc.title); } }\" }"
+respon = rc.getTempView(json_doc)
+print(respon.headers)
+print(respon.text)
+
+# Get temporary view
+print("-------getTempView-2----------")
+json_doc = "{ \"map\" : \"function(doc) { if( doc.tags.indexOf('eins')  !== -1) { emit(null, doc.title); } }\" }"
 respon = rc.getTempView(json_doc)
 print(respon.headers)
 print(respon.text)
