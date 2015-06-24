@@ -160,22 +160,15 @@ class RestCouch:
         uri_path = "/" + self.databese + "/_design/first_design/_view/all"
         return self.doGET2(uri_path)
 
-    def addDesign(self):
+    def getNamedDesign(self, design_name):
+        ## A design
+        uri_path = "/" + self.databese + "/_design/first_design/_view/" + design_name
+        return self.doGET2(uri_path)
+
+    def addDesign(self, json_doc):
         ##
         # Insert a new design.
         uri_path = "/" + self.databese + "/_design/" + "first_design"
-        json_doc = "{ \"_id\":\"_design/first_design\","
-        json_doc += "\"language\": \"javascript\","
-        json_doc += "\"views\":"
-        json_doc += "{"
-        json_doc += "\"all\": {"
-        json_doc += "\"map\": \"function(doc) { if (doc.Type == 'customer')  emit(null, doc) }\""
-        json_doc += "},"
-        json_doc += "\"by_lastname\": {"
-        json_doc += "\"map\": \"function(doc) { if (doc.Type == 'customer')  emit(doc.LastName, doc) }\""
-        json_doc += "}"
-        json_doc += "}"
-        json_doc += "}"
         print(json_doc)
         return self.doPUT2(uri_path, json_doc)
 

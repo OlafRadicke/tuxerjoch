@@ -25,7 +25,7 @@ print(respon.text)
 
 # Add a json document
 print("-------insertDoc----------")
-json_data = '{"title":"Goldbergvariationen","artist":"Bach"}'
+json_data = '{"Type": "artist", "title":"Goldbergvariationen","artist":"Bach"}'
 respon = rc.insertDoc(json_data)
 print(respon.headers)
 print(respon.text)
@@ -33,7 +33,7 @@ print(respon.text)
 
 # Add a json document
 print("-------insertDoc----------")
-json_data = '{"title":"3. Symphony","artist":"Bethoven"}'
+json_data = '{"Type": "artist", "title":"3. Symphony","artist":"Bethoven"}'
 respon = rc.insertDoc(json_data)
 print(respon.headers)
 print(respon.text)
@@ -41,7 +41,7 @@ print(respon.text)
 
 # Add a json document
 print("-------insertDoc----------")
-json_data = '{"title":"Kleine Nachtmusik","artist":"Mozart"}'
+json_data = '{"Type": "artist", "title":"Kleine Nachtmusik","artist":"Mozart"}'
 respon = rc.insertNamedDoc("kleine_nachtmosik", json_data)
 print(respon.headers)
 print(respon.text)
@@ -66,21 +66,40 @@ respon = rc.searchDocs(json_data)
 print(respon.headers)
 print(respon.text)
 
-# Get all databes names
-print("-------getAllDBs----------")
-respon = rc.getAllDBs()
-print(respon.headers)
-print(respon.text)
-
 # Add design
 print("-------addDesign----------")
-respon = rc.addDesign()
+json_doc = "{ \"_id\":\"_design/first_design\","
+json_doc += "\"language\": \"javascript\","
+json_doc += "\"views\":"
+json_doc += "{"
+json_doc += "\"all\": {"
+json_doc += "\"map\": \"function(doc) { if (doc.Type == 'artist')  emit(null, doc) }\""
+json_doc += "},"
+json_doc += "\"by_artist_name\": {"
+json_doc += "\"map\": \"function(doc) { if (doc.artist == 'Mozart')  emit(doc.artist, doc.title, doc) }\""
+json_doc += "}"
+json_doc += "}"
+json_doc += "}"
+respon = rc.addDesign(json_doc)
 print(respon.headers)
 print(respon.text)
 
 # get design
 print("-------getDesign----------")
 respon = rc.getDesign()
+print(respon.headers)
+print(respon.text)
+
+
+# get design
+print("-------getNamedDesign----------")
+respon = rc.getNamedDesign("by_artist_name")
+print(respon.headers)
+print(respon.text)
+
+# Get all databes names
+print("-------getAllDBs----------")
+respon = rc.getAllDBs()
 print(respon.headers)
 print(respon.text)
 
