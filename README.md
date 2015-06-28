@@ -9,11 +9,28 @@ python3-bottle
 
 docker pull fedora/couchdb
 
-# REST-API #
+# Externe Dokus #
+## CouchDB-REST-API ##
 
-http://docs.couchdb.org/en/1.6.1/intro/api.html
+http://docs.couchdb.org/en/latest/api/index.html
+
+## CouchDB-REST-API views ##
+https://wiki.apache.org/couchdb/HTTP_view_API
+
+## python3-requests ##
 
 http://www.pythonforbeginners.com/requests/using-requests-in-python
 
-## views ##
-https://wiki.apache.org/couchdb/HTTP_view_API
+## Bottle-Docu ##
+
+http://bottlepy.org/docs/dev/tutorial.html
+
+# Dodos #
+
+## attachment ##
+
+http://docs.couchdb.org/en/latest/api/document/attachments.html
+
+## DELETE ##
+
+http://docs.couchdb.org/en/latest/api/document/common.html

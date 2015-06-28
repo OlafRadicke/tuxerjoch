@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import restcouch
+import restcouch.restcouch
 
-rc = restcouch.RestCouch()
+rc = restcouch.restcouch.RestCouch()
 rc.setHost("127.0.0.1")
 rc.setPort("5984")
 rc.setPassword("admin")
