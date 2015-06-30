@@ -1,5 +1,5 @@
 
-import httplib2
+#import httplib2
 import requests
 import json
 
@@ -31,38 +31,37 @@ class RestCouch:
     def doGET(self, uri_path):
         ## A GET-Request
         # @param uri_path the uri path
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         headers = {'content-type': 'application/json'}
-        return requests.get(requeststring, auth=(self.user, self.password), headers=headers)
+        return requests.get(request_uri, auth=(self.user, self.password), headers=headers)
 
     def doPUT(self, uri_path):
         ## A PUT-Request
         # @param uri_path the uri path
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
-        print(requeststring)
-        return requests.put(requeststring, auth=(self.user, self.password))
+        request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        print(request_uri)
+        return requests.put(request_uri, auth=(self.user, self.password))
 
     def doPUT2(self, uri_path, json_doc):
         ## A PUT-Request
         # @param uri_path the uri path
         # @param json_doc a json document
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
-        return requests.put(requeststring, auth=(self.user, self.password), data=json_doc)
+        request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        return requests.put(request_uri, auth=(self.user, self.password), json=json.loads(json_doc))
 
     def doDELETE(self, uri_path):
         ## A DELETE-Request
         # @param uri_path the uri path
-
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
-        return requests.delete(requeststring, auth=(self.user, self.password))
+        request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        return requests.delete(request_uri, auth=(self.user, self.password))
 
     def doPOST(self, uri_path, json_doc):
         ## A Post-Request
         # @param uri_path the uri path
         # @param json_doc a json document
-        requeststring = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         headers = {'content-type': 'application/json'}
-        return requests.post(requeststring, auth=(self.user, self.password), data=json_doc, headers=headers)
+        return requests.post(request_uri, auth=(self.user, self.password), json=json.loads(json_doc), headers=headers)
 
     def createDB(self, db_name):
         ## Creates a new data base.
@@ -100,11 +99,13 @@ class RestCouch:
         uri_path = "/" + self.databese + "/_all_docs"
         return self.doGET(uri_path)
 
-    def searchDocs(self, json_doc):
-        ## Search docomens with keys
-        # @param json_doc json with search keys
-        uri_path = "/" + self.databese + "/_all_docs"
-        return self.doPOST(uri_path, json_doc)
+    def deleteDoc(self, name):
+        respon = self.getDocValue(name)
+        rev_no = json.loads(respon.text)["_rev"]
+        uri_path = "/" + self.databese + "/" + name
+        request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        json_doc = '{"_id": "' + name + '", "_rev": "' + rev_no + '", "_deleted":true}'
+        return requests.put( request_uri, auth=(self.user, self.password), json=json.loads(json_doc))
 
     def getDocValue(self, uuid):
         ## Get back the value of a jason document
