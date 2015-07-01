@@ -16,10 +16,10 @@ class NewArticle:
 
     def new_post(self):
         flashed_message = None
-        uri_id = bottle.request.forms.get('uri_id')
-        title = bottle.request.forms.get('title')
-        article_text = bottle.request.forms.get('article_text')
-        tags = bottle.request.forms.get('tags').lower()
+        uri_id = bottle.request.forms.getunicode('uri_id')
+        title = bottle.request.forms.getunicode('title')
+        article_text = bottle.request.forms.getunicode('article_text')
+        tags = bottle.request.forms.getunicode('tags').lower()
         current_time = datetime.datetime.now(datetime.timezone.utc)
         unix_timestamp = current_time.timestamp()
         # extrahieren mit
@@ -34,18 +34,29 @@ class NewArticle:
         if (title == "") or (article_text == ""):
             return bottle.template('new_article', flashed_message="Unvollständige Angaben!" )
         else:
-            dataSet = dict()
-            dataSet["document_type"] = "blog_article"
-            dataSet["uri_id"] = uri_id
-            dataSet["title"] = title
-            dataSet["article_text"] = article_text
-            dataSet["created"] = unix_timestamp
-            dataSet["last_update"] = unix_timestamp
-            dataSet["tags"] = tags.split()
+            #dataSet = dict()
+            #dataSet["document_type"] = "blog_article"
+            #dataSet["uri_id"] = uri_id
+            #dataSet["title"] = title
+            #dataSet["article_text"] = article_text
+            #dataSet["created"] = unix_timestamp
+            #dataSet["last_update"] = unix_timestamp
+            #dataSet["tags"] = tags.split()
 
-        json = json.dumps( dataSet )
-        print( json )
-        response = self.couchDB.insertNamedDoc( uri_id, json )
+            #print( article_text )
+            json_code = '{ \n'
+            json_code += '"document_type": "blog_article", \n'
+            json_code += '"uri_id": "' + uri_id + '", \n'
+            json_code += '"title": "' + title + '", \n'
+            json_code += '"article_text": "' + article_text + '", \n'
+            json_code += '"created": ' + str(unix_timestamp) + ', \n'
+            json_code += '"last_update": ' + str(unix_timestamp) + ', \n'
+            json_code += '"tags": ["' + '","'.join( tags.split() ) + '"] \n'
+            json_code += '}'
+
+        #json_code = json.dumps( dataSet )
+        print( json_code )
+        response = self.couchDB.insertNamedDoc( uri_id, json_code )
         print( response.text )
         bottle.redirect("/")
 
