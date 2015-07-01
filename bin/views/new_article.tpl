@@ -4,20 +4,27 @@
     <title>Neuer Artikel</title>
   </head>
   <body>
-
+    <p>
+ % if flashed_message:
+      <div>{{ flashed_message }}</div>
+ % end
+    </p>
     <h1>Neuer Artikel</h1>
     <p>
         <form action="" method="POST">
         URI-ID:<br>
-        <input type="text" name="uri-id" cols="80" >
+        <input type="text" name="uri_id" placeholder="wunsch uri" >
         <br>
-        Überschrift:<br>
-        <input type="text" name="title" cols="80" >
+        Überschrift*:<br>
+        <input type="text" name="title" placeholder="Überschrift" required  >
         <br>
-        Artikel:<br>
-        <textarea name="articletext" cols="80" rows="5"></textarea>
+        Artikel*:<br>
+        <textarea name="article_text" cols="80" rows="5" placeholder="Artikeltext" required ></textarea>
         <br>
-        <button type="button">Speichern</button>
+        Schlagwörter:<br>
+        <input id="firstname"  name="tags" type="text" placeholder="Schlagwörter" required />
+        <br>
+        <button type="submit">Speichern</button>
         </form>
     </p>
   </body>

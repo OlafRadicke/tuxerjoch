@@ -1,10 +1,9 @@
 
-#import httplib2
 import requests
 import json
 
 
-class RestCouch:
+class RestWrapper:
     ## A wrapper class for the rest api of couchdb
 
     uri_host = "localhost"
@@ -32,6 +31,7 @@ class RestCouch:
         ## A GET-Request
         # @param uri_path the uri path
         request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
+        print( request_uri )
         headers = {'content-type': 'application/json'}
         return requests.get(request_uri, auth=(self.user, self.password), headers=headers)
 
@@ -81,8 +81,8 @@ class RestCouch:
 
     def getUUID(self):
         ## Get bback a UUID as string
-        respon = self.doGET("/_uuids")
-        return json.loads(respon.text)["uuids"][0]
+        response = self.doGET("/_uuids")
+        return json.loads(response.text)["uuids"][0]
 
     def insertDoc(self, json_doc):
         ## Insert a json document in a database.
@@ -100,8 +100,8 @@ class RestCouch:
         return self.doGET(uri_path)
 
     def deleteDoc(self, name):
-        respon = self.getDocValue(name)
-        rev_no = json.loads(respon.text)["_rev"]
+        response = self.getDocValue(name)
+        rev_no = json.loads(response.text)["_rev"]
         uri_path = "/" + self.databese + "/" + name
         request_uri = "http://" + self.uri_host + ":" + self.uri_port + uri_path
         json_doc = '{"_id": "' + name + '", "_rev": "' + rev_no + '", "_deleted":true}'

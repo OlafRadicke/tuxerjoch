@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import restcouch.restcouch
+import couch_backend.rest
 import json
 
-rc = restcouch.restcouch.RestCouch()
+rc = couch_backend.rest.RestWrapper()
 rc.setHost("127.0.0.1")
 rc.setPort("5984")
 rc.setPassword("admin")
