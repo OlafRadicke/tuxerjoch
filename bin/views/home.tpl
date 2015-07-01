@@ -15,7 +15,7 @@
     <p>
         <ul>
         % for item in artikles["rows"]:
-            <li><a href="artikle_view/{{item["id"]}}">{{item["id"]}}</a></li>
+            <li><a href="view_article/{{item["id"]}}">{{item["id"]}}</a></li>
         % end
         </ul>
     </p>

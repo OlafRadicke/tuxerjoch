@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import bottle
 import json
 import datetime
@@ -41,6 +43,15 @@ class NewArticle:
             dataSet["last_update"] = unix_timestamp
             dataSet["tags"] = tags.split()
 
-        print( json.dumps( dataSet ) )
-        self.couchDB.insertDoc( json.dumps( dataSet ) )
+        json = json.dumps( dataSet )
+        print( json )
+        response = self.couchDB.insertNamedDoc( uri_id, json )
+        print( response.text )
         bottle.redirect("/")
+
+
+    def view_article_get(self, name):
+        response = self.couchDB.getDocValue(name)
+        print( response.text )
+        artikle_data = json.loads(response.text, 'utf8')
+        return bottle.template('view_article', artikle=artikle_data)
