@@ -69,7 +69,8 @@ if "error" in auth_key_data:
         logging.info( "Can not found document auth_key and create with default password" )
         json_code = '{ \n'
         json_code += '"document_type": "app_config", \n'
-        json_code += '"passwd_hash": "613367845fd07938881688f6c7e222497d778db3c3d7ff85c764498347d495c9:tuxerjoch" \n'
+        json_code += '"passwd_hash": "613367845fd07938881688f6c7e222497d778db3c3d7ff85c764498347d495c9", \n'
+        json_code += '"salt": "tuxerjoch" \n'
         json_code += '}'
 
         response = restWrapper.insertNamedDoc( "auth_key", json_code )

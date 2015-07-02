@@ -5,6 +5,7 @@ import json
 import datetime
 import uuid
 import hashlib
+import logging
 
 class Auth:
 
@@ -12,26 +13,31 @@ class Auth:
         self.couchDB = couchDB
 
 
-    def hash_password(password):
+    def hash_password( self, password ):
         # uuid is used to generate a random number
         salt = uuid.uuid4().hex
         return hashlib.sha256(salt.encode() + password.encode()).hexdigest() + ':' + salt
         # print( hashlib.sha256("tuxerjoch".encode() + tuxerjoch.encode()).hexdigest() + ':' + "tuxerjoch" )
 
-    def check_password(hashed_password, user_password):
-        password, salt = hashed_password.split(':')
-        return password == hashlib.sha256(salt.encode() + user_password.encode()).hexdigest()
+    def check_password( self, input_password ):
+        response = self.couchDB.getDocValue( "auth_key" )
+        auth_key_data = json.loads(response.text, 'utf8')
+        password = auth_key_data["passwd_hash"]
+        salt = auth_key_data["salt"]
+        return password == hashlib.sha256(salt.encode() + input_password.encode()).hexdigest()
 
 
-    def login_get():
+    def login_get( self, ):
         return bottle.template('login')
 
-    def login_post():
+    def login_post( self, ):
         password = bottle.request.forms.get('password')
-        if check_login(username, password):
+        if self.check_password( password) :
+            logging.info( "Login")
             return "<p>Your login information was correct.</p>"
-            bottle.redirect("/")
+            #bottle.redirect("/")
         else:
+            logging.info( "Login failed!")
             return "<p>Login failed.</p>"
 
 #new_pass = input('Please enter a password: ')
