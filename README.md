@@ -10,6 +10,7 @@ python3
 python3-requests
 python3-bottle
 python3-simplejson
+python3-cherrypy
 
 # docker #
 

@@ -12,10 +12,24 @@ class NewArticle:
         self.couchDB = couchDB
 
     def new_get(self):
-        return bottle.template('new_article', flashed_message=None)
+        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        # check session
+        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        if authenticated == None:
+            bottle.redirect("/login")
+        return bottle.template(
+            'new_article',
+            flashed_message=None,
+            authenticated=authenticated)
 
 
     def new_post(self):
+        '''This controller created a new article.'''
+        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        # check session
+        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        if authenticated == None:
+            bottle.redirect("/login")
         flashed_message = None
         uri_id = bottle.request.forms.getunicode('uri_id')
         title = bottle.request.forms.getunicode('title')
@@ -34,7 +48,10 @@ class NewArticle:
             uri_id = re.sub('[^a-zA-Z0-9-_*.]', '', uri_id)
         uri_id = "articke_" + uri_id
         if (title == "") or (article_text == ""):
-            return bottle.template('new_article', flashed_message="Unvollständige Angaben!" )
+            return bottle.template(
+                'new_article',
+                flashed_message="Unvollständige Angaben!",
+                authenticated=authenticated)
         else:
             #print( article_text )
             json_code = '{ \n'
@@ -55,12 +72,36 @@ class NewArticle:
 
 
     def view_article_get(self, name):
+        '''This controller show a article'''
+        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        # check session
+        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
         response = self.couchDB.getDocValue(name)
         logging.info( "view document: " )
         logging.info( name )
         logging.debug( response.text )
         artikle_data = json.loads(response.text, 'utf8')
-        if artikle["document_type"] != "blog_article":
+        if "error" in artikle_data:
+            if artikle_data["error"] == "not_found":
+                return bottle.template(
+                    'error',
+                    authenticated=authenticated,
+                    flashed_message="Dokument nicht gefunden!" )
+            else:
+                return bottle.template(
+                    'error',
+                    authenticated=authenticated,
+                    flashed_message= artikle_data["error"] + ": " + artikle_data["reason"] )
+
+        if "document_type" in artikle_data:
+            if artikle_data["document_type"] != "blog_article":
+                logging.error( "This document is not a blog article! Get a 401 error.")
+                bottle.abort(401, "Sorry, access denied.")
+        else:
             logging.error( "This document is not a blog article! Get a 401 error.")
-            abort(401, "Sorry, access denied.")
-        return bottle.template('view_article', artikle=artikle_data)
+            bottle.abort(401, "Sorry, access denied.")
+
+        return bottle.template(
+            'view_article',
+            authenticated=authenticated,
+            artikle=artikle_data)

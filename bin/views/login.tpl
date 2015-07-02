@@ -1,9 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-    <title>Startseite</title>
-  </head>
+% include('header.tpl', title='Login')
   <body>
+% if flashed_message:
+      <div>{{ flashed_message }}</div>
+% end
+% include( 'menu_bar.tpl', authenticated=authenticated )
     <h1>Login</h1>
     <p>
         <form action="/login" method="post">

@@ -7,8 +7,15 @@ class Home:
         self.couchDB = couchDB
 
     def start_get(self):
+        '''Controller of the start page'''
+        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        # check session
+        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+
         response = self.couchDB.getAllDocs()
-        print( response.text )
         artikle_list = json.loads(response.text)
-        #artikle_list = ['eins','zwei','drei']
-        return bottle.template('home', artikles=artikle_list)
+        return bottle.template(
+            'home',
+            authenticated=authenticated,
+            artikles=artikle_list
+        )
