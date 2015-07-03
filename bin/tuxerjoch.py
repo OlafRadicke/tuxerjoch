@@ -100,7 +100,17 @@ class Tuxerjoch:
 
     def static_file_get( self, filename ):
         '''Get back static content'''
-        return bottle.static_file(filename, root='/static/')
+        return bottle.static_file(filename, root='static')
+
+    def pics_file_get( self, filename ):
+        '''Get back static picture content'''
+        print("Search pic: " + filename)
+        return bottle.static_file(filename, root='static/pics')
+
+    def bootstrap_file_get( self, filename ):
+        '''Get back static pics content'''
+        print("Search pic: " + filename)
+        return bottle.static_file(filename, root='static/bootstrap/css')
 
     def init_controller(self):
         # init controller
@@ -110,7 +120,8 @@ class Tuxerjoch:
 
     def set_routs(self):
         '''set routs'''
-
+        self.app.route('/bootstrap/css/<filename>', ['GET'], self.bootstrap_file_get)
+        self.app.route('/pics/<filename>', ['GET'], self.pics_file_get)
         self.app.route('/static/<filename>', ['GET'], self.static_file_get)
         self.app.route('/', ['GET'],
                        self.home_page.start_get)

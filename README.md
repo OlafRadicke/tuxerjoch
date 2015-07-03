@@ -41,3 +41,10 @@ http://docs.couchdb.org/en/latest/api/document/attachments.html
 ## DELETE ##
 
 http://docs.couchdb.org/en/latest/api/document/common.html
+
+## Picture resources ##
+
+The alpen picture is form
+https://commons.wikimedia.org/wiki/File:Kronplatz_Nordf%C3%B6hn04_2013-01-08.jpg
+The origin file is licensed under the Creative Commons Attribution-Share Alike
+3.0 Unported license.

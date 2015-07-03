@@ -24,5 +24,5 @@ class Home:
             'skeleton',
             title="Startseite",
             authenticated=authenticated,
-            main_areal=block_article_list
+            main_area=block_article_list
         )

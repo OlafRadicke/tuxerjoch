@@ -36,10 +36,17 @@ class Auth:
         )
         if authenticated == "true":
             bottle.redirect("/")
+
+        block_login = bottle.template(
+            'block_login',
+            flashed_message=None
+        )
+
         return bottle.template(
-            'login',
-            flashed_message=None,
-            authenticated=authenticated)
+            'skeleton',
+            title="Login",
+            authenticated=authenticated,
+            main_area=block_login)
 
 
     def login_post( self, ):

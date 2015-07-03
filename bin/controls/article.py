@@ -14,14 +14,6 @@ class NewArticle:
     def __init__(self, couchDB, ):
         self.couchDB = couchDB
 
-    #def authenticated_check( self ):
-        #'''Checked is the user authenticated and return the result'''
-        #auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        ## check session
-        #authenticated = bottle.request.get_cookie(
-            #"authenticated",
-            #secret = auth_key_data["cookie_secret_key"])
-        #return authenticated
 
     def new_get(self):
         '''The GET controller for creating new artikle page'''
@@ -29,10 +21,17 @@ class NewArticle:
         #authenticated = self.authenticated_check()
         if authenticated == None:
             bottle.redirect("/login")
+
+        block_new_article = bottle.template(
+            'block_new_article',
+            flashed_message=None)
+
         return bottle.template(
-            'new_article',
-            flashed_message=None,
-            authenticated=authenticated)
+            'skeleton',
+            title="Neuer Artikel",
+            authenticated=authenticated,
+            main_area=block_new_article)
+
 
 
     def new_post(self):
@@ -58,10 +57,17 @@ class NewArticle:
             uri_id = re.sub('[^a-zA-Z0-9-_*.]', '', uri_id)
         uri_id = "articke_" + uri_id
         if (title == "") or (article_text == ""):
+            block_new_article = bottle.template(
+                'block_new_article',
+                flashed_message="Unvollständige Angaben!")
+
             return bottle.template(
-                'new_article',
-                flashed_message="Unvollständige Angaben!",
-                authenticated=authenticated)
+                'skeleton',
+                title="Neuer Artikel",
+                authenticated=authenticated,
+                main_area=block_new_article)
+
+
         else:
             #print( article_text )
             json_code = '{ \n'
@@ -120,4 +126,4 @@ class NewArticle:
             'skeleton',
             title=artikle_data["title"],
             authenticated=authenticated,
-            main_areal=block_view_article)
+            main_area=block_view_article)
