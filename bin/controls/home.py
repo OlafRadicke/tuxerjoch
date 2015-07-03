@@ -1,6 +1,8 @@
 import bottle
 import json
 
+import controls.auth
+
 class Home:
 
     def __init__(self, couchDB):
@@ -8,14 +10,19 @@ class Home:
 
     def start_get(self):
         '''Controller of the start page'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        # check session
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
-
+        authenticated = controls.auth.authenticated_check( self.couchDB )
         response = self.couchDB.getAllDocs()
+
         artikle_list = json.loads(response.text)
-        return bottle.template(
-            'home',
-            authenticated=authenticated,
+
+        block_article_list = bottle.template(
+            'block_article_list',
             artikles=artikle_list
+        )
+
+        return bottle.template(
+            'skeleton',
+            title="Startseite",
+            authenticated=authenticated,
+            main_areal=block_article_list
         )

@@ -2,19 +2,31 @@
 
 import bottle
 import json
+import simplejson
 import datetime
 import re
 import logging
+
+import controls.auth
 
 class NewArticle:
 
     def __init__(self, couchDB, ):
         self.couchDB = couchDB
 
+    #def authenticated_check( self ):
+        #'''Checked is the user authenticated and return the result'''
+        #auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        ## check session
+        #authenticated = bottle.request.get_cookie(
+            #"authenticated",
+            #secret = auth_key_data["cookie_secret_key"])
+        #return authenticated
+
     def new_get(self):
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        # check session
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        '''The GET controller for creating new artikle page'''
+        authenticated = controls.auth.authenticated_check( self.couchDB )
+        #authenticated = self.authenticated_check()
         if authenticated == None:
             bottle.redirect("/login")
         return bottle.template(
@@ -24,16 +36,14 @@ class NewArticle:
 
 
     def new_post(self):
-        '''This controller created a new article.'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        # check session
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        '''The POST controller for creating new artikle page'''
+        authenticated = controls.auth.authenticated_check( self.couchDB )
         if authenticated == None:
             bottle.redirect("/login")
         flashed_message = None
         uri_id = bottle.request.forms.getunicode('uri_id')
         title = bottle.request.forms.getunicode('title')
-        article_text = bottle.request.forms.getunicode('article_text')
+        article_text = simplejson.dumps(  bottle.request.forms.getunicode('article_text') )
         tags = bottle.request.forms.getunicode('tags').lower()
         current_time = datetime.datetime.now(datetime.timezone.utc)
         unix_timestamp = current_time.timestamp()
@@ -58,7 +68,8 @@ class NewArticle:
             json_code += '"document_type": "blog_article", \n'
             json_code += '"uri_id": "' + uri_id + '", \n'
             json_code += '"title": "' + title + '", \n'
-            json_code += '"article_text": "' + article_text + '", \n'
+            #json_code += '"article_text": "' + article_text + '", \n'
+            json_code += '"article_text": ' + article_text + ', \n'
             json_code += '"created": ' + str(unix_timestamp) + ', \n'
             json_code += '"last_update": ' + str(unix_timestamp) + ', \n'
             json_code += '"tags": ["' + '","'.join( tags.split() ) + '"] \n'
@@ -101,7 +112,12 @@ class NewArticle:
             logging.error( "This document is not a blog article! Get a 401 error.")
             bottle.abort(401, "Sorry, access denied.")
 
-        return bottle.template(
-            'view_article',
-            authenticated=authenticated,
+        block_view_article = bottle.template(
+            'block_view_article',
             artikle=artikle_data)
+
+        return bottle.template(
+            'skeleton',
+            title=artikle_data["title"],
+            authenticated=authenticated,
+            main_areal=block_view_article)

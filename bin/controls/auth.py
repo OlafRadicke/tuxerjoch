@@ -30,7 +30,10 @@ class Auth:
     def login_get( self, ):
         '''Controller function for get login method'''
         auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        authenticated = bottle.request.get_cookie(
+            "authenticated",
+            secret = auth_key_data["cookie_secret_key"]
+        )
         if authenticated == "true":
             bottle.redirect("/")
         return bottle.template(
@@ -48,7 +51,8 @@ class Auth:
             bottle.response.set_cookie(
                 "authenticated",
                 "true",
-                secret = auth_key_data["cookie_secret_key"]
+                secret = auth_key_data["cookie_secret_key"],
+                max_age = auth_key_data["cookie_live_time"]
             )
             #return "<p>Your login information was correct.</p>"
             bottle.redirect("/")
@@ -71,3 +75,12 @@ class Auth:
             secret = auth_key_data["cookie_secret_key"]
         )
         bottle.redirect("/")
+
+def authenticated_check( couchDB ):
+    '''Checked is the user authenticated and return the result'''
+    auth_key_data = json.loads( couchDB.getDocValue( "auth_key" ).text, 'utf8')
+    # check session
+    authenticated = bottle.request.get_cookie(
+        "authenticated",
+        secret = auth_key_data["cookie_secret_key"])
+    return authenticated

@@ -71,7 +71,10 @@ if "error" in auth_key_data:
         json_code += '    "document_type": "app_config", \n'
         json_code += '    "passwd_hash": "613367845fd07938881688f6c7e222497d778db3c3d7ff85c764498347d495c9", \n'
         json_code += '    "salt": "tuxerjoch", \n'
-        json_code += '    "cookie_secret_key": "tuxerjoch" \n'
+        # signature key required for signed cookies
+        json_code += '    "cookie_secret_key": "tuxerjoch", \n'
+        # cookie live time maximum age in seconds
+        json_code += '    "cookie_live_time": 7200 \n'
         json_code += '}'
 
         response = restWrapper.insertNamedDoc( "auth_key", json_code )
