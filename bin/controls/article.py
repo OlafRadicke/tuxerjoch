@@ -42,6 +42,7 @@ class NewArticle:
         flashed_message = None
         uri_id = bottle.request.forms.getunicode('uri_id')
         title = bottle.request.forms.getunicode('title')
+        teaser_text = simplejson.dumps(  bottle.request.forms.getunicode('teaser_text') )
         article_text = simplejson.dumps(  bottle.request.forms.getunicode('article_text') )
         tags = bottle.request.forms.getunicode('tags').lower()
         current_time = datetime.datetime.now(datetime.timezone.utc)
@@ -55,7 +56,7 @@ class NewArticle:
             uri_id = uri_id.strip()
             # Remove special characters
             uri_id = re.sub('[^a-zA-Z0-9-_*.]', '', uri_id)
-        uri_id = "articke_" + uri_id
+        uri_id = "blog_articel_" + uri_id
         if (title == "") or (article_text == ""):
             block_new_article = bottle.template(
                 'block_new_article',
@@ -74,7 +75,7 @@ class NewArticle:
             json_code += '"document_type": "blog_article", \n'
             json_code += '"uri_id": "' + uri_id + '", \n'
             json_code += '"title": "' + title + '", \n'
-            #json_code += '"article_text": "' + article_text + '", \n'
+            json_code += '"teaser": ' + teaser_text + ', \n'
             json_code += '"article_text": ' + article_text + ', \n'
             json_code += '"created": ' + str(unix_timestamp) + ', \n'
             json_code += '"last_update": ' + str(unix_timestamp) + ', \n'

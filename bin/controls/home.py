@@ -13,7 +13,6 @@ class Home:
         authenticated = controls.auth.authenticated_check( self.couchDB )
         response = self.couchDB.getNamedView( "blog_article", "all")
         artikle_list = json.loads(response.text)
-        print( artikle_list )
         block_article_list = bottle.template(
             'block_article_list',
             artikles=artikle_list

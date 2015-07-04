@@ -2,18 +2,26 @@
     <h1>Neuer Artikel</h1>
     <p>
         <form action="" method="POST">
-        URI-ID:<br>
-        <input type="text" name="uri_id" placeholder="wunsch uri" >
-        <br>
-        Überschrift*:<br>
-        <input type="text" name="title" placeholder="Überschrift" required  >
-        <br>
-        Artikel*:<br>
-        <textarea name="article_text" cols="80" rows="5" placeholder="Artikeltext" required ></textarea>
-        <br>
-        Schlagwörter:<br>
-        <input id="firstname"  name="tags" type="text" placeholder="Schlagwörter" required />
-        <br>
-        <button type="submit">Speichern</button>
+            <div class="form-group">
+              <label for="uri_id">URI-ID:</label>
+              <input  class="form-control" id="uri_id" type="text" name="uri_id" placeholder="wunsch uri" >
+            </div>
+            <div class="form-group">
+              <label for="title">Überschrift*:</label>
+              <input class="form-control" id="title" name="title" type="text" placeholder="Überschrift" >
+            </div>
+            <div class="form-group">
+              <label for="teaser_text">Anrisstext(html)*:</label>
+              <textarea class="form-control" id="teaser_text" name="teaser_text" type="text" placeholder="Anrisstext" ></textarea>
+            </div>
+            <div class="form-group">
+                <label for="article_text">Anrisstext(html)*:</label>
+                <textarea class="form-control" id="article_text" name="article_text" rows="15" placeholder="Artikeltext" required ></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tags">Schlagwörter:</label>
+                <input class="form-control" id="tags"  name="tags" type="text" placeholder="Schlagwörter" required />
+            </div>
+            <button class="btn btn-default" type="submit">Speichern</button>
         </form>
     </p>

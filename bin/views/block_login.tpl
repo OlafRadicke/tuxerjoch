@@ -2,8 +2,10 @@
     <h1>Login</h1>
     <p>
         <form action="/login" method="post">
-            Passwort: <input name="password" type="password" />
-            <br>
-            <button type="submit">Login</button>
+            <div class="form-group">
+                <label for="password">Passwort:</label>
+                <input  class="form-control" id="password" type="password" name="password" placeholder="wunsch uri" >
+            </div>
+            <button class="btn btn-default" type="submit">Login</button>
         </form>
     </p>

@@ -7,13 +7,15 @@
     <link href="{{uri_prefix}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-
+<!-- Page header -->
     <div class="row">
-        <div class="col-md-12 ">
+        <div class="col-md-12 text-center">
             <img class="img-responsive center-block" src="/pics/alpen_small.jpg" />
             <h1 class="col-md-12 .text-center"><a href="/">TUXERJOCH</a></h1>
         </div>
+    </div>
 <!-- Menu -->
+    <div class="row">
         <div class="col-md-12">
             <ul  class="pager"> <!--class="nav nav-pills">-->
                 % if authenticated == None:
@@ -25,12 +27,22 @@
                 % end
             </ul>
         </div>
-        <!-- tags -->
-        <div class="col-md-4">tags...</div>
-        <!-- main areal -->
-        <div class="col-md-4">
-
+    </div>
+<!-- Middle area -->
+    <div class="row">
+<!-- main area -->
+        <div class="col-md-4  col-md-offset-2">
             {{!main_area}}
+        </div>
+<!-- tags -->
+        <div class="col-md-4">
+            <h3>Tags</h3>
+            <ul  class="list-unstyled">
+                <li><a href="{{uri_prefix}}login">EINS</a></li>
+                <li><a href="{{uri_prefix}}login">ZWEI</a></li>
+                <li><a href="{{uri_prefix}}login">DREI</a></li>
+                <li><a href="{{uri_prefix}}login">VIER</a></li>
+            </ul>
         </div>
     </div>
 
