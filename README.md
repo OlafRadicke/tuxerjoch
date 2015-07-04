@@ -1,6 +1,7 @@
 TUXERJOCH
 ---------
 
+Source code / website:
 https://github.com/OlafRadicke/tuxerjoch
 
 
@@ -14,7 +15,9 @@ python3-cherrypy
 
 # docker #
 
-docker pull fedora/couchdb
+If you like using docker for CouchDB then do this:
+
+> docker pull fedora/couchdb
 
 # Externe Dokus #
 ## CouchDB-REST-API ##
@@ -38,13 +41,16 @@ http://bottlepy.org/docs/dev/tutorial.html
 
 http://docs.couchdb.org/en/latest/api/document/attachments.html
 
-## DELETE ##
-
-http://docs.couchdb.org/en/latest/api/document/common.html
-
-## Picture resources ##
+# Picture resources #
 
 The alpen picture is form
 https://commons.wikimedia.org/wiki/File:Kronplatz_Nordf%C3%B6hn04_2013-01-08.jpg
 The origin file is licensed under the Creative Commons Attribution-Share Alike
 3.0 Unported license.
+
+# The name TUXERJOCH #
+
+why the name TUXERJOCH? Well i was looking for neutral name, but I had no
+ideas. So I used the random function of German Wikipedia and get this name.
+
+https://en.wikipedia.org/wiki/Tuxer_Joch

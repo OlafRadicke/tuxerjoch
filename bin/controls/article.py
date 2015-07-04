@@ -100,16 +100,22 @@ class NewArticle:
         artikle_data = json.loads(response.text, 'utf8')
         if "error" in artikle_data:
             if artikle_data["error"] == "not_found":
-                return bottle.template(
-                    'error',
-                    authenticated=authenticated,
-                    flashed_message="Dokument nicht gefunden!" )
+                flashed_message="Dokument nicht gefunden!"
             else:
-                return bottle.template(
-                    'error',
-                    authenticated=authenticated,
-                    flashed_message= artikle_data["error"] + ": " + artikle_data["reason"] )
+                flashed_message= artikle_data["error"] + ": " + artikle_data["reason"]
 
+            block_error = bottle.template(
+                'block_error',
+                flashed_message="Dokument nicht gefunden!" )
+
+            return bottle.template(
+                'skeleton',
+                uri_prefix="../",
+                title=artikle_data["title"],
+                authenticated=authenticated,
+                main_area=block_error)
+
+        # Do you show only blog article. Nothing else!
         if "document_type" in artikle_data:
             if artikle_data["document_type"] != "blog_article":
                 logging.error( "This document is not a blog article! Get a 401 error.")
@@ -124,6 +130,7 @@ class NewArticle:
 
         return bottle.template(
             'skeleton',
+            uri_prefix="../",
             title=artikle_data["title"],
             authenticated=authenticated,
             main_area=block_view_article)

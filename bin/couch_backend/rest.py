@@ -111,22 +111,39 @@ class RestWrapper:
         ## Get back the value of a jason document
         return  self.doGET( "/" + self.databese + "/" + uuid)
 
+    #----------- DESINGN -----------------------
+
     def getDesign(self):
         ## A design
         uri_path = "/" + self.databese + "/_design/first_design/_view/all"
         return self.doGET(uri_path)
 
-    def getNamedDesign(self, design_name):
-        ## A design
-        uri_path = "/" + self.databese + "/_design/first_design/_view/" + design_name
-        return self.doGET(uri_path)
 
     def addDesign(self, json_doc):
         ## Insert a new design.
         uri_path = "/" + self.databese + "/_design/" + "first_design"
         return self.doPUT2(uri_path, json_doc)
 
+
+    def addNamedDesign(self, name, json_doc):
+        ## Insert a new design.
+        uri_path = "/" + self.databese + "/_design/" + name
+        return self.doPUT2(uri_path, json_doc)
+
+    def getDesignCode(self, design_name):
+        ## A design
+        uri_path = "/" + self.databese + "/_design/" + design_name
+        return self.doGET(uri_path)
+
+    #------------------------- VIEWS ---------------------------
+
     def getTempView(self, json_doc):
         ## Get a teporary view
         uri_path = "/" + self.databese + "/_temp_view"
         return self.doPOST(uri_path, json_doc)
+
+
+    def getNamedView(self, design_name, view_name):
+        ## A design
+        uri_path = "/" + self.databese + "/_design/" + design_name + "/_view/" + view_name
+        return self.doGET(uri_path)

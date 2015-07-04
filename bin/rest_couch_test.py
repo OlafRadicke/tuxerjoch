@@ -17,9 +17,9 @@ rc.setDB("erstedb")
 
 # create database
 print("--------createDB---------")
-respon = rc.createDB("erstedb")
-print(respon.headers)
-print(respon.text)
+response = rc.createDB("erstedb")
+print(response.headers)
+print(response.text)
 
 # get a UUID
 #print( rc.getUUID() )
@@ -27,39 +27,39 @@ print(respon.text)
 # Add a json document
 print("-------insertDoc----------")
 json_data = '{"Type": "artist", "title":"Goldbergvariationen","author":"Bach", "tags": ["eins","zwei","drei"]}'
-respon = rc.insertDoc(json_data)
-print(respon.headers)
-print(respon.text)
+response = rc.insertDoc(json_data)
+print(response.headers)
+print(response.text)
 
 
 # Add a json document
 print("-------insertDoc----------")
 json_data = '{"Type": "artist", "title":"3. Symphony","author":"Bethoven"}'
-respon = rc.insertDoc(json_data)
-print(respon.headers)
-print(respon.text)
+response = rc.insertDoc(json_data)
+print(response.headers)
+print(response.text)
 
 
 # Add a json document
 print("-------insertDoc----------")
 json_data = '{"Type": "artist", "title":"Kleine Nachtmusik","author":"Mozart"}'
-respon = rc.insertNamedDoc("kleine_nachtmusik", json_data)
-print(respon.headers)
-print(respon.text)
+response = rc.insertNamedDoc("kleine_nachtmusik", json_data)
+print(response.headers)
+print(response.text)
 
 
 # Get value of a json document
 print("-------getDocValue----------")
-respon = rc.getDocValue("kleine_nachtmusik")
-print(respon.headers)
-print(respon.text)
-print(json.loads(respon.text)["author"])
+response = rc.getDocValue("kleine_nachtmusik")
+print(response.headers)
+print(response.text)
+print(json.loads(response.text)["author"])
 
 # get all documents
 print("-------getAllDocs----------")
-respon = rc.getAllDocs()
-print(respon.headers)
-print(respon.text)
+response = rc.getAllDocs()
+print(response.headers)
+print(response.text)
 
 
 # Add design
@@ -76,52 +76,52 @@ json_doc += "\"map\": \"function(doc) { if (doc.artist == 'Mozart')  emit(doc.ar
 json_doc += "}"
 json_doc += "}"
 json_doc += "}"
-respon = rc.addDesign(json_doc)
-print(respon.headers)
-print(respon.text)
+response = rc.addDesign(json_doc)
+print(response.headers)
+print(response.text)
 
 # get design
 print("-------getDesign----------")
-respon = rc.getDesign()
-print(respon.headers)
-print(respon.text)
+response = rc.getDesign()
+print(response.headers)
+print(response.text)
 
 
 # get design
 print("-------getNamedDesign----------")
-respon = rc.getNamedDesign("by_artist_name")
-print(respon.headers)
-print(respon.text)
+response = rc.getNamedDesign("by_artist_name")
+print(response.headers)
+print(response.text)
 
 # Get temporary view
 print("-------getTempView----------")
 json_doc = "{ \"map\" : \"function(doc) { if (doc.artist == 'Mozart') { emit(null, doc.title); } }\" }"
-respon = rc.getTempView(json_doc)
-print(respon.headers)
-print(respon.text)
+response = rc.getTempView(json_doc)
+print(response.headers)
+print(response.text)
 
 # Get temporary view
 print("-------getTempView-2----------")
 json_doc = "{ \"map\" : \"function(doc) { if( doc.tags.indexOf('eins')  !== -1) { emit(null, doc.title); } }\" }"
-respon = rc.getTempView(json_doc)
-print(respon.headers)
-print(respon.text)
+response = rc.getTempView(json_doc)
+print(response.headers)
+print(response.text)
 
 # Delete document
 print("-------deleteDoc----------")
-respon = rc.deleteDoc("kleine_nachtmusik")
-print(respon.headers)
-print(respon.text)
+response = rc.deleteDoc("kleine_nachtmusik")
+print(response.headers)
+print(response.text)
 
 
 # Get all databes names
 print("-------getAllDBs----------")
-respon = rc.getAllDBs()
-print(respon.headers)
-print(respon.text)
+response = rc.getAllDBs()
+print(response.headers)
+print(response.text)
 
 # delete db
 print("--------deleteDB---------")
-respon = rc.deleteDB("erstedb")
-print(respon.headers)
-print(respon.text)
+response = rc.deleteDB("erstedb")
+print(response.headers)
+print(response.text)

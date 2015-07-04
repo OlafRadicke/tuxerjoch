@@ -16,6 +16,7 @@ class Tuxerjoch:
         self.config_logger()
         self.config_database_connect()
         self.check_database_status()
+        self.check_designs()
         self.init_controller()
         self.set_routs()
 
@@ -52,7 +53,7 @@ class Tuxerjoch:
             )
 
     def config_database_connect(self):
-        '''Prepare database connect'''
+        '''Prepare database connect parameters for configuration'''
         self.restWrapper = couch_backend.rest.RestWrapper()
         self.restWrapper.setHost( self.config_data["couch_host"] )
         self.restWrapper.setPort( self.config_data["couch_port"] )
@@ -61,7 +62,7 @@ class Tuxerjoch:
         self.restWrapper.setDB( self.config_data["couch_db"] )
 
     def check_database_status(self):
-        '''check database'''
+        '''check and prepare database'''
         response = self.restWrapper.getAllDBs()
         logging.debug( "Founded data bases: ")
         logging.debug( response.text )
@@ -73,7 +74,7 @@ class Tuxerjoch:
             logging.info( response.text )
 
     def check_password_protection(self):
-        '''check password protection'''
+        '''check and prepare password protection'''
         response = self.restWrapper.getDocValue( "auth_key" )
         print( response.text )
         auth_key_data = json.loads(response.text, 'utf8')
@@ -96,7 +97,29 @@ class Tuxerjoch:
                 logging.error( "Unknown error: " )
                 logging.error( auth_key_data["error"] + ": " + auth_key_data["reason"] )
 
-
+    def check_designs( self ):
+        '''Check and prepare designs'''
+        response = self.restWrapper.getDesignCode("blog_article")
+        auth_key_data = json.loads(response.text, 'utf8')
+        if "error" in auth_key_data:
+            if auth_key_data["error"] == "not_found":
+                logging.info( "Can not found designs / views and will create this now with defaults" )
+                json_doc = '''{  \n
+    "_id": "_design/blog_article", \n
+    "language": "javascript", \n
+    "views": { \n
+        "all": {\n
+            "map": "function(doc) { if (doc.document_type == 'blog_article')  emit(null, doc) }"\n
+        }
+    }\n
+}'''
+                logging.info(json_doc)
+                response = self.restWrapper.addNamedDesign( "blog_article", json_doc )
+                logging.info(response.headers)
+                logging.info(response.text)
+            else:
+                logging.error( "Unknown error: " )
+                logging.error( auth_key_data["error"] + ": " + auth_key_data["reason"] )
 
     def static_file_get( self, filename ):
         '''Get back static content'''
@@ -104,12 +127,10 @@ class Tuxerjoch:
 
     def pics_file_get( self, filename ):
         '''Get back static picture content'''
-        print("Search pic: " + filename)
         return bottle.static_file(filename, root='static/pics')
 
     def bootstrap_file_get( self, filename ):
         '''Get back static pics content'''
-        print("Search pic: " + filename)
         return bottle.static_file(filename, root='static/bootstrap/css')
 
     def init_controller(self):

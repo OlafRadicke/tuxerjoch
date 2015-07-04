@@ -2,7 +2,7 @@
     <h1>{{artikle["title"]}}</h1>
 
     <p>
-{{!artikle["article_text"]}}
+        {{!artikle["article_text"]}}
     </p>
 
     <h2>Schlagworte</h2>
