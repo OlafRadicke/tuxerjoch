@@ -7,5 +7,8 @@
             <p><small>Letzte Änderung: {{str_date}}</small></p>
             <p>{{item["value"]["teaser"]}}</p>
             <p><a href="view_article/{{item["id"]}}">Weiterlesen...</a></p>
-        % end
+            <p>Kategorie:
+            % for tag in item["value"]["tags"]:
+<a href="tags/{{tag}}">{{tag}}</a>
+            % end
     </p>

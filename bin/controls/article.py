@@ -89,6 +89,11 @@ class NewArticle:
         bottle.redirect("/")
 
 
+class ViewArticle:
+
+    def __init__(self, couchDB, ):
+        self.couchDB = couchDB
+
     def view_article_get(self, name):
         '''This controller show a article'''
         auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
@@ -135,3 +140,27 @@ class NewArticle:
             title=artikle_data["title"],
             authenticated=authenticated,
             main_area=block_view_article)
+
+
+    def all_tags_get( self ):
+        '''show all used tags'''
+        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        response = self.couchDB.getNamedView( "blog_article", "all_tags")
+        tag_statistics = dict()
+        for item in json.loads(response.text)["rows"]:
+            if item["value"] in tag_statistics.keys():
+                tag_statistics[item["value"]] += 1
+            else:
+                tag_statistics[item["value"]] = 1
+        block_view_all_tags = bottle.template(
+            'block_view_all_tags',
+            tag_statistics=tag_statistics)
+
+        return bottle.template(
+            'skeleton',
+            uri_prefix="../",
+            title="Schlagworte",
+            authenticated=authenticated,
+            main_area=block_view_all_tags)
+

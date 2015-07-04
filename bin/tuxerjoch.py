@@ -54,28 +54,28 @@ class Tuxerjoch:
 
     def config_database_connect(self):
         '''Prepare database connect parameters for configuration'''
-        self.restWrapper = couch_backend.rest.RestWrapper()
-        self.restWrapper.setHost( self.config_data["couch_host"] )
-        self.restWrapper.setPort( self.config_data["couch_port"] )
-        self.restWrapper.setPassword( self.config_data["couch_passwd"] )
-        self.restWrapper.setUser( self.config_data["couch_user"] )
-        self.restWrapper.setDB( self.config_data["couch_db"] )
+        self.couchDB = couch_backend.rest.RestWrapper()
+        self.couchDB.setHost( self.config_data["couch_host"] )
+        self.couchDB.setPort( self.config_data["couch_port"] )
+        self.couchDB.setPassword( self.config_data["couch_passwd"] )
+        self.couchDB.setUser( self.config_data["couch_user"] )
+        self.couchDB.setDB( self.config_data["couch_db"] )
 
     def check_database_status(self):
         '''check and prepare database'''
-        response = self.restWrapper.getAllDBs()
+        response = self.couchDB.getAllDBs()
         logging.debug( "Founded data bases: ")
         logging.debug( response.text )
         if self.config_data["couch_db"] in json.loads(response.text):
             logging.debug("I found database " + self.config_data["couch_db"])
         else:
             logging.info( "I can not found database " + self.config_data["couch_db"] + " and create now!")
-            response = self.restWrapper.createDB( self.config_data["couch_db"] )
+            response = self.couchDB.createDB( self.config_data["couch_db"] )
             logging.info( response.text )
 
     def check_password_protection(self):
         '''check and prepare password protection'''
-        response = self.restWrapper.getDocValue( "auth_key" )
+        response = self.couchDB.getDocValue( "auth_key" )
         print( response.text )
         auth_key_data = json.loads(response.text, 'utf8')
         if "error" in auth_key_data:
@@ -91,7 +91,7 @@ class Tuxerjoch:
                 json_code += '    "cookie_live_time": 7200 \n'
                 json_code += '}'
 
-                response = self.restWrapper.insertNamedDoc( "auth_key", json_code )
+                response = self.couchDB.insertNamedDoc( "auth_key", json_code )
                 logging.info( response.text )
             else:
                 logging.error( "Unknown error: " )
@@ -99,7 +99,7 @@ class Tuxerjoch:
 
     def check_designs( self ):
         '''Check and prepare designs'''
-        response = self.restWrapper.getDesignCode("blog_article")
+        response = self.couchDB.getDesignCode("blog_article")
         auth_key_data = json.loads(response.text, 'utf8')
         if "error" in auth_key_data:
             if auth_key_data["error"] == "not_found":
@@ -110,11 +110,17 @@ class Tuxerjoch:
     "views": { \n
         "all": {\n
             "map": "function(doc) { if (doc.document_type == 'blog_article')  emit(null, doc) }"\n
+        },\n
+        "all_tags": {\n
+            "map": "function(doc) { \
+                if (doc.document_type == 'blog_article') \
+                for(var idx in doc.tags) \
+                { emit('tag', doc.tags[idx])} }"\n
         }
     }\n
 }'''
                 logging.info(json_doc)
-                response = self.restWrapper.addNamedDesign( "blog_article", json_doc )
+                response = self.couchDB.addNamedDesign( "blog_article", json_doc )
                 logging.info(response.headers)
                 logging.info(response.text)
             else:
@@ -135,9 +141,10 @@ class Tuxerjoch:
 
     def init_controller(self):
         # init controller
-        self.home_page          = controls.home.Home( self.restWrapper )
-        self.controllNewArticle = controls.article.NewArticle( self.restWrapper )
-        self.controllAuth       = controls.auth.Auth( self.restWrapper )
+        self.home_page           = controls.home.Home( self.couchDB )
+        self.controllNewArticle  = controls.article.NewArticle( self.couchDB )
+        self.controllViewArticle = controls.article.ViewArticle( self.couchDB )
+        self.controllAuth        = controls.auth.Auth( self.couchDB )
 
     def set_routs(self):
         '''set routs'''
@@ -146,6 +153,8 @@ class Tuxerjoch:
         self.app.route('/static/<filename>', ['GET'], self.static_file_get)
         self.app.route('/', ['GET'],
                        self.home_page.start_get)
+        self.app.route('/all_tags', ['GET'],
+                       self.controllViewArticle.all_tags_get)
         self.app.route('/login', ['GET'],
                        self.controllAuth.login_get)
         self.app.route('/login', ['POST'],
@@ -157,7 +166,7 @@ class Tuxerjoch:
         self.app.route('/new_article', ['POST'],
                        self.controllNewArticle.new_post)
         self.app.route('/view_article/<name>', ['GET'],
-                       self.controllNewArticle.view_article_get)
+                       self.controllViewArticle.view_article_get)
 
     def run(self):
         '''Start listening'''

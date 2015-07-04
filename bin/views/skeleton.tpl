@@ -18,6 +18,7 @@
     <div class="row">
         <div class="col-md-12">
             <ul  class="pager"> <!--class="nav nav-pills">-->
+                <li role="presentation"><a href="{{uri_prefix}}all_tags">Schlagworte</a></li>
                 % if authenticated == None:
                 <li role="presentation"><a href="{{uri_prefix}}login">login</a></li>
                 % end
@@ -28,21 +29,21 @@
             </ul>
         </div>
     </div>
+    <hr style="width: 80%;height: 8px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">
 <!-- Middle area -->
     <div class="row">
 <!-- main area -->
-        <div class="col-md-4  col-md-offset-2">
+        <div class="col-md-6 col-md-offset-4">
+        <!--<div class="col-md-4  col-md-offset-2">-->
             {{!main_area}}
         </div>
 <!-- tags -->
-        <div class="col-md-4">
-            <h3>Tags</h3>
-            <ul  class="list-unstyled">
-                <li><a href="{{uri_prefix}}login">EINS</a></li>
-                <li><a href="{{uri_prefix}}login">ZWEI</a></li>
-                <li><a href="{{uri_prefix}}login">DREI</a></li>
-                <li><a href="{{uri_prefix}}login">VIER</a></li>
-            </ul>
+    </div>
+<!-- footer -->
+    <hr style="width: 80%;height: 4px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            power by <a href="https://github.com/OlafRadicke/tuxerjoch">TUXERJOCH</a>
         </div>
     </div>
 
