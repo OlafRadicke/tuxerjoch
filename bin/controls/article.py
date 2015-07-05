@@ -192,6 +192,7 @@ class Article:
         print("if delete?")
         print(bottle.request.forms.getunicode('delete'))
 
+        created = bottle.request.forms.getunicode('created')
         rev_id = bottle.request.forms.getunicode('rev_id')
         uri_id = bottle.request.forms.getunicode('uri_id')
         title = bottle.request.forms.getunicode('title')
@@ -223,7 +224,7 @@ class Article:
             json_code += '"title": "' + title + '", \n'
             json_code += '"teaser": ' + teaser_text + ', \n'
             json_code += '"article_text": ' + article_text + ', \n'
-            json_code += '"created": ' + str(unix_timestamp) + ', \n'
+            json_code += '"created": ' + created + ', \n'
             json_code += '"last_update": ' + str(unix_timestamp) + ', \n'
             json_code += '"tags": ["' + '","'.join( tags.split() ) + '"] \n'
             json_code += '}'

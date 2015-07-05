@@ -4,6 +4,10 @@
         <form action="../edit_article" method="POST">
             <input
                 type="hidden"
+                name="created"
+                value="{{artikle["created"]}}">
+            <input
+                type="hidden"
                 name="rev_id"
                 value="{{artikle["_rev"]}}">
             <div class="form-group">
