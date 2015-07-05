@@ -142,8 +142,7 @@ class Tuxerjoch:
     def init_controller(self):
         # init controller
         self.home_page           = controls.home.Home( self.couchDB )
-        self.controllNewArticle  = controls.article.NewArticle( self.couchDB )
-        self.controllViewArticle = controls.article.ViewArticle( self.couchDB )
+        self.controllArticle  = controls.article.Article( self.couchDB )
         self.controllAuth        = controls.auth.Auth( self.couchDB )
         self.controllTags        = controls.tags.Tags( self.couchDB )
 
@@ -156,6 +155,10 @@ class Tuxerjoch:
                        self.home_page.start_get)
         self.app.route('/all_tags', ['GET'],
                        self.controllTags.all_tags_get)
+        self.app.route('/edit_article/<name>', ['GET'],
+                       self.controllArticle.edit_get)
+        self.app.route('/edit_article', ['POST'],
+                       self.controllArticle.edit_post)
         self.app.route('/login', ['GET'],
                        self.controllAuth.login_get)
         self.app.route('/login', ['POST'],
@@ -163,13 +166,13 @@ class Tuxerjoch:
         self.app.route('/logout', ['GET'],
                        self.controllAuth.logout_get)
         self.app.route('/new_article', ['GET'],
-                       self.controllNewArticle.new_get)
+                       self.controllArticle.new_get)
         self.app.route('/new_article', ['POST'],
-                       self.controllNewArticle.new_post)
+                       self.controllArticle.new_post)
         self.app.route('/tags/<tag_name>', ['GET'],
                        self.controllTags.tags_get)
         self.app.route('/view_article/<name>', ['GET'],
-                       self.controllViewArticle.view_article_get)
+                       self.controllArticle.view_article_get)
 
     def run(self):
         '''Start listening'''

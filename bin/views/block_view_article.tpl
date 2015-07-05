@@ -4,13 +4,13 @@
     <p>
         {{!artikle["article_text"]}}
     </p>
-
-    <h2>Schlagworte</h2>
-
     <p>
-        <ul>
+        <b>Schlagworte:</b>
         % for item in artikle["tags"]:
-            <li><a href="tags/{{item}}">{{item}}</a></li>
+            <a href="tags/{{item}}">{{item}}</a> 
         % end
-        </ul>
+        <br>
+        % if authenticated == "true":
+        <a href="../edit_article/{{artikle["uri_id"]}}">Artikel bearbeiten</a>
+        %end
     </p>

@@ -1,7 +1,11 @@
 
     <h1>Neuer Artikel</h1>
     <p>
-        <form action="" method="POST">
+        <form action="../edit_article" method="POST">
+            <input
+                type="hidden"
+                name="rev_id"
+                value="{{artikle["_rev"]}}">
             <div class="form-group">
                 <label for="uri_id">URI-ID:</label>
                 <input
@@ -9,7 +13,8 @@
                     id="uri_id"
                     type="text"
                     name="uri_id"
-                    placeholder="wunsch uri" >
+                    value="{{artikle["uri_id"]}}"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="title">Überschrift*:</label>
@@ -18,7 +23,7 @@
                     id="title"
                     name="title"
                     type="text"
-                    placeholder="Überschrift" >
+                    value="{{artikle["title"]}}" >
             </div>
             <div class="form-group">
                 <label for="teaser_text">Anrisstext(html)*:</label>
@@ -27,8 +32,7 @@
                     id="teaser_text"
                     name="teaser_text"
                     type="text"
-                    placeholder="Anrisstext"
-                    required ></textarea>
+                    required >{{artikle["teaser"]}}</textarea>
             </div>
             <div class="form-group">
                 <label for="article_text">Anrisstext(html)*:</label>
@@ -37,8 +41,7 @@
                     id="article_text"
                     name="article_text"
                     rows="15"
-                    placeholder="Artikeltext"
-                    required ></textarea>
+                    required >{{artikle["article_text"]}}</textarea>
             </div>
             <div class="form-group">
                 <label for="tags">Schlagwörter:</label>
@@ -47,9 +50,19 @@
                     id="tags"
                     name="tags"
                     type="text"
-                    placeholder="Schlagwörter"
+                    value="{{" ".join(artikle["tags"])}}"
                     required />
             </div>
-            <button class="btn btn-default" type="submit">Speichern</button>
+            <button
+                class="btn btn-default"
+                type="submit"
+                name="save"
+                value="true">Speichern</button>
+            <button
+                class="btn btn-default"
+                type="button"
+                name="delete"
+                value="true">Artikel löschen</button>
+            <a href="../">Abbrechen</a>
         </form>
     </p>
