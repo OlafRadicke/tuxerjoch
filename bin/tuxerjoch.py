@@ -5,6 +5,7 @@ import logging
 import controls.article
 import controls.auth
 import controls.home
+import controls.tags
 import couch_backend.rest
 
 class Tuxerjoch:
@@ -76,7 +77,6 @@ class Tuxerjoch:
     def check_password_protection(self):
         '''check and prepare password protection'''
         response = self.couchDB.getDocValue( "auth_key" )
-        print( response.text )
         auth_key_data = json.loads(response.text, 'utf8')
         if "error" in auth_key_data:
             if auth_key_data["error"] == "not_found":
@@ -145,6 +145,7 @@ class Tuxerjoch:
         self.controllNewArticle  = controls.article.NewArticle( self.couchDB )
         self.controllViewArticle = controls.article.ViewArticle( self.couchDB )
         self.controllAuth        = controls.auth.Auth( self.couchDB )
+        self.controllTags        = controls.tags.Tags( self.couchDB )
 
     def set_routs(self):
         '''set routs'''
@@ -154,7 +155,7 @@ class Tuxerjoch:
         self.app.route('/', ['GET'],
                        self.home_page.start_get)
         self.app.route('/all_tags', ['GET'],
-                       self.controllViewArticle.all_tags_get)
+                       self.controllTags.all_tags_get)
         self.app.route('/login', ['GET'],
                        self.controllAuth.login_get)
         self.app.route('/login', ['POST'],
@@ -165,6 +166,8 @@ class Tuxerjoch:
                        self.controllNewArticle.new_get)
         self.app.route('/new_article', ['POST'],
                        self.controllNewArticle.new_post)
+        self.app.route('/tags/<tag_name>', ['GET'],
+                       self.controllTags.tags_get)
         self.app.route('/view_article/<name>', ['GET'],
                        self.controllViewArticle.view_article_get)
 

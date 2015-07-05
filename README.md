@@ -13,6 +13,29 @@ python3-bottle
 python3-simplejson
 python3-cherrypy
 
+# Configuration #
+
+there is a configuration file with name ./tuxerjoch.conf
+
+> {
+>     "couch_host": "127.0.0.1",
+>     "couch_port": "5984",
+>     "couch_user": "admin",
+>     "couch_passwd": "admin",
+>     "couch_db": "tuxerjoch",
+>     "webservice_host": "127.0.0.1",
+>     "webservice_port": "8080",
+>     "log_file": "tuxerjoch.log",
+>     "log_level": "DEBUG"
+> }
+
+''"couch_*"'' is the couch db configuration. ''"webservice_*"'' is port
+and host ware tuxerjoch is listening. ''"log_level"'' can have the value:
+
+* DEBUG
+* INFO
+* ERROR
+
 # docker #
 
 If you like using docker for CouchDB then do this:
