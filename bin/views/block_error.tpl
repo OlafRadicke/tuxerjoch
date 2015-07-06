@@ -1,5 +1,7 @@
 
         <h2>Es trat ein Fehler auf</h2>
-        <div>{{ flashed_message }}</div>
+        <p class="bg-danger">
+            <div>{{ flashed_message }}</div>
+        </p>
 
 

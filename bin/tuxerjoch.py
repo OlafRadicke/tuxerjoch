@@ -3,6 +3,7 @@ import json
 import logging
 
 import controls.article
+import controls.articlemodify
 import controls.auth
 import controls.home
 import controls.tags
@@ -141,10 +142,11 @@ class Tuxerjoch:
 
     def init_controller(self):
         # init controller
-        self.home_page           = controls.home.Home( self.couchDB )
-        self.controllArticle  = controls.article.Article( self.couchDB )
-        self.controllAuth        = controls.auth.Auth( self.couchDB )
-        self.controllTags        = controls.tags.Tags( self.couchDB )
+        self.home_page             = controls.home.Home( self.couchDB )
+        self.controllArticle       = controls.article.Article( self.couchDB )
+        self.controllArticleModify = controls.articlemodify.ArticleModify( self.couchDB )
+        self.controllAuth          = controls.auth.Auth( self.couchDB )
+        self.controllTags          = controls.tags.Tags( self.couchDB )
 
     def set_routs(self):
         '''set routs'''
@@ -155,10 +157,12 @@ class Tuxerjoch:
                        self.home_page.start_get)
         self.app.route('/all_tags', ['GET'],
                        self.controllTags.all_tags_get)
+        self.app.route('/delete_article', ['POST'],
+                       self.controllArticleModify.delete_post)
         self.app.route('/edit_article/<name>', ['GET'],
-                       self.controllArticle.edit_get)
+                       self.controllArticleModify.edit_get)
         self.app.route('/edit_article', ['POST'],
-                       self.controllArticle.edit_post)
+                       self.controllArticleModify.edit_post)
         self.app.route('/login', ['GET'],
                        self.controllAuth.login_get)
         self.app.route('/login', ['POST'],

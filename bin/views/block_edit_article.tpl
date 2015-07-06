@@ -64,7 +64,7 @@
                 value="true">Speichern</button>
             <button
                 class="btn btn-default"
-                type="button"
+                type="submit"
                 name="delete"
                 value="true">Artikel löschen</button>
             <a href="../">Abbrechen</a>

@@ -1,4 +1,15 @@
 % setdefault('uri_prefix', '')
+% setdefault('flashed_message', '')
+% setdefault('flashed_level', 'info')
+<!--
+Supported Level:
+    primary
+    success
+    info
+    warning
+    danger
+-->
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
@@ -7,6 +18,16 @@
     <link href="{{uri_prefix}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
+<!-- Page flashed message -->
+% if flashed_message != '':
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p class="bg-{{flashed_level}}">
+                <div>{{ flashed_message }}</div>
+            </p>
+        </div>
+    </div>
+% end
 <!-- Page header -->
     <div class="row">
         <div class="col-md-12 text-center">
@@ -29,7 +50,14 @@
             </ul>
         </div>
     </div>
-    <hr style="width: 80%;height: 8px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">
+    <hr
+        style="width: 80%;
+            height: 4px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color:#FF0066;
+            color:#FF0066;
+            border: 0 none;">
 <!-- Middle area -->
     <div class="row">
 <!-- main area -->
@@ -40,7 +68,7 @@
 <!-- tags -->
     </div>
 <!-- footer -->
-    <hr style="width: 80%;height: 4px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">
+    <hr style="width: 80%;height: 2px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">
     <div class="row">
         <div class="col-md-12 text-center">
             power by <a href="https://github.com/OlafRadicke/tuxerjoch">TUXERJOCH</a>
