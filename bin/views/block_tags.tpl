@@ -1,9 +1,13 @@
 % import datetime
-    <h2>Artikel zu Schlagwort <i>{{tag_name}}</i></h2>
+    <h4>Artikel zu Schlagwort <i>{{tag_name}}</i></h4>
     <p>
-        <ul>
+
+        <div class="list-group">
         % for item in article_of_tag["rows"]:
-            <li><a href="../view_article/{{item["id"]}}"><i>{{item["value"]}}</i></a></li>
+            <a
+                class="list-group-item"
+                href="../view_article/{{item["id"]}}" >{{item["value"]}}</a>
         % end
-        </ul>
+        </div>
+
     </p>

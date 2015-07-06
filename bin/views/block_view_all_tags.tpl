@@ -1,9 +1,10 @@
-    <h2>Verwendete Schlagworte</h2>
-    <p>
-        <dl class="dl-horizontal">
+    <h3 class="text-center">Verwendete Schlagworte</h3>
+    <p
+        style="column-count: 3;
+            -moz-column-count: 3;
+            -webkit-column-count: 3">
+
         % for key in sorted( tag_statistics["statistics"].keys() ):
-            <dt>{{tag_statistics["statistics"][key]}}</dt>
-            <dd><a href="../tags/{{key}}">{{key}}</a></dd>
+            <br><a href="../tags/{{key}}">{{key}}</a> ({{tag_statistics["statistics"][key]}}x)
         % end
-        </dl>
     </p>

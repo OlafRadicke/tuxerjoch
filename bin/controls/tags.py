@@ -17,8 +17,8 @@ class Tags:
 
     def tags_get( self, tag_name ):
         '''lists all the article with a named tag'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
+        authenticated = bottle.request.get_cookie("authenticated", secret = global_config_data["cookie_secret_key"])
         json_request =  '{'
         json_request +=     '"map" : "function(doc) { '
         json_request +=         'if( '
@@ -47,11 +47,10 @@ class Tags:
 
     def all_tags_get( self ):
         '''show all used tags'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
+        authenticated = bottle.request.get_cookie("authenticated", secret = global_config_data["cookie_secret_key"])
         '''check and prepare password protection'''
         response = self.couchDB.getDocValue( "tag_statistics" )
-        print( response.text )
         tag_statistics = json.loads(response.text, 'utf8')
         if "error" in tag_statistics:
             if tag_statistics["error"] == "not_found":
@@ -151,6 +150,5 @@ class Tags:
         json_code += '    "last_update": ' + str(unix_timestamp) + ', \n'
         json_code += '    "statistics": ' + simplejson.dumps( tag_statistics)  + ' \n'
         json_code += '}'
-        print( json_code )
         return json_code
 

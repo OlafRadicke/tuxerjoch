@@ -90,9 +90,9 @@ class Article:
 
     def view_article_get(self, name):
         '''This controller show a article'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
         # check session
-        authenticated = bottle.request.get_cookie("authenticated", secret = auth_key_data["cookie_secret_key"])
+        authenticated = bottle.request.get_cookie("authenticated", secret = global_config_data["cookie_secret_key"])
 
         response = self.couchDB.getDocValue(name)
         logging.info( "view document: " )

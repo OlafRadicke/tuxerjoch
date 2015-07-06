@@ -18,6 +18,7 @@ class Tuxerjoch:
         self.config_logger()
         self.config_database_connect()
         self.check_database_status()
+        self.check_password_protection()
         self.check_designs()
         self.init_controller()
         self.set_routs()
@@ -77,11 +78,11 @@ class Tuxerjoch:
 
     def check_password_protection(self):
         '''check and prepare password protection'''
-        response = self.couchDB.getDocValue( "auth_key" )
-        auth_key_data = json.loads(response.text, 'utf8')
-        if "error" in auth_key_data:
-            if auth_key_data["error"] == "not_found":
-                logging.info( "Can not found document auth_key and create with default password" )
+        response = self.couchDB.getDocValue( "global_config" )
+        global_config_data = json.loads(response.text, 'utf8')
+        if "error" in global_config_data:
+            if global_config_data["error"] == "not_found":
+                logging.info( "Can not found document global_config and create with default password" )
                 json_code = '{ \n'
                 json_code += '    "document_type": "app_config", \n'
                 json_code += '    "passwd_hash": "613367845fd07938881688f6c7e222497d778db3c3d7ff85c764498347d495c9", \n'
@@ -92,25 +93,27 @@ class Tuxerjoch:
                 json_code += '    "cookie_live_time": 7200 \n'
                 json_code += '}'
 
-                response = self.couchDB.insertNamedDoc( "auth_key", json_code )
+                response = self.couchDB.insertNamedDoc( "global_config", json_code )
                 logging.info( response.text )
             else:
                 logging.error( "Unknown error: " )
-                logging.error( auth_key_data["error"] + ": " + auth_key_data["reason"] )
+                logging.error( global_config_data["error"] + ": " + global_config_data["reason"] )
+        else:
+            logging.error( "I found document global_config. Okay." )
 
     def check_designs( self ):
         '''Check and prepare designs'''
         response = self.couchDB.getDesignCode("blog_article")
-        auth_key_data = json.loads(response.text, 'utf8')
-        if "error" in auth_key_data:
-            if auth_key_data["error"] == "not_found":
+        global_config_data = json.loads(response.text, 'utf8')
+        if "error" in global_config_data:
+            if global_config_data["error"] == "not_found":
                 logging.info( "Can not found designs / views and will create this now with defaults" )
                 json_doc = '''{  \n
     "_id": "_design/blog_article", \n
     "language": "javascript", \n
     "views": { \n
         "all": {\n
-            "map": "function(doc) { if (doc.document_type == 'blog_article')  emit(null, doc) }"\n
+            "map": "function(doc) { if (doc.document_type == 'blog_article')  emit(doc.last_update, doc) }"\n
         },\n
         "all_tags": {\n
             "map": "function(doc) { \
@@ -126,7 +129,7 @@ class Tuxerjoch:
                 logging.info(response.text)
             else:
                 logging.error( "Unknown error: " )
-                logging.error( auth_key_data["error"] + ": " + auth_key_data["reason"] )
+                logging.error( global_config_data["error"] + ": " + global_config_data["reason"] )
 
     def static_file_get( self, filename ):
         '''Get back static content'''

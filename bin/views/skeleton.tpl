@@ -32,7 +32,7 @@ Supported Level:
     <div class="row">
         <div class="col-md-12 text-center">
             <img class="img-responsive center-block" src="/pics/alpen_small.jpg" />
-            <h1 class="col-md-12 .text-center"><a href="/">TUXERJOCH</a></h1>
+            <h1 class="col-md-12 .text-center"><a href="/"><t>the independent friend</t></a></h1>
         </div>
     </div>
 <!-- Menu -->
@@ -58,14 +58,13 @@ Supported Level:
             background-color:#FF0066;
             color:#FF0066;
             border: 0 none;">
-<!-- Middle area -->
-    <div class="row">
+
 <!-- main area -->
-        <div class="col-md-6 col-md-offset-4">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
         <!--<div class="col-md-4  col-md-offset-2">-->
             {{!main_area}}
         </div>
-<!-- tags -->
     </div>
 <!-- footer -->
     <hr style="width: 80%;height: 2px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">

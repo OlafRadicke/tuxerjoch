@@ -20,19 +20,19 @@ class Auth:
         # print( hashlib.sha256("tuxerjoch".encode() + tuxerjoch.encode()).hexdigest() + ':' + "tuxerjoch" )
 
     def check_password( self, input_password ):
-        response = self.couchDB.getDocValue( "auth_key" )
-        auth_key_data = json.loads(response.text, 'utf8')
-        password = auth_key_data["passwd_hash"]
-        salt = auth_key_data["salt"]
+        response = self.couchDB.getDocValue( "global_config" )
+        global_config_data = json.loads(response.text, 'utf8')
+        password = global_config_data["passwd_hash"]
+        salt = global_config_data["salt"]
         return password == hashlib.sha256(salt.encode() + input_password.encode()).hexdigest()
 
 
     def login_get( self, ):
         '''Controller function for get login method'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
         authenticated = bottle.request.get_cookie(
             "authenticated",
-            secret = auth_key_data["cookie_secret_key"]
+            secret = global_config_data["cookie_secret_key"]
         )
         if authenticated == "true":
             bottle.redirect("/")
@@ -54,12 +54,12 @@ class Auth:
         password = bottle.request.forms.get('password')
         if self.check_password( password) :
             logging.info( "Login session")
-            auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+            global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
             bottle.response.set_cookie(
                 "authenticated",
                 "true",
-                secret = auth_key_data["cookie_secret_key"],
-                max_age = auth_key_data["cookie_live_time"]
+                secret = global_config_data["cookie_secret_key"],
+                max_age = global_config_data["cookie_live_time"]
             )
             #return "<p>Your login information was correct.</p>"
             bottle.redirect("/")
@@ -75,19 +75,19 @@ class Auth:
 
     def logout_get( self, ):
         '''Controller function for get logout method'''
-        auth_key_data = json.loads( self.couchDB.getDocValue( "auth_key" ).text, 'utf8')
+        global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
         bottle.response.set_cookie(
             "authenticated",
             None,
-            secret = auth_key_data["cookie_secret_key"]
+            secret = global_config_data["cookie_secret_key"]
         )
         bottle.redirect("/")
 
 def authenticated_check( couchDB ):
     '''Checked is the user authenticated and return the result'''
-    auth_key_data = json.loads( couchDB.getDocValue( "auth_key" ).text, 'utf8')
+    global_config_data = json.loads( couchDB.getDocValue( "global_config" ).text, 'utf8')
     # check session
     authenticated = bottle.request.get_cookie(
         "authenticated",
-        secret = auth_key_data["cookie_secret_key"])
+        secret = global_config_data["cookie_secret_key"])
     return authenticated
