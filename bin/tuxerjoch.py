@@ -5,6 +5,7 @@ import logging
 import controls.article
 import controls.articlemodify
 import controls.auth
+import controls.config
 import controls.home
 import controls.tags
 import couch_backend.rest
@@ -88,9 +89,11 @@ class Tuxerjoch:
                 json_code += '    "passwd_hash": "613367845fd07938881688f6c7e222497d778db3c3d7ff85c764498347d495c9", \n'
                 json_code += '    "salt": "tuxerjoch", \n'
                 # signature key required for signed cookies
-                json_code += '    "cookie_secret_key": "tuxerjoch", \n'
+                json_code += '    "cookie_secret_key": "' + self.couchDB.getUUID() + '", \n'
                 # cookie live time maximum age in seconds
-                json_code += '    "cookie_live_time": 7200 \n'
+                json_code += '    "cookie_live_time": 7200, \n'
+                json_code += '    "result_sort_descending": "true", \n'
+                json_code += '    "result_limit": 25 \n'
                 json_code += '}'
 
                 response = self.couchDB.insertNamedDoc( "global_config", json_code )
@@ -149,6 +152,7 @@ class Tuxerjoch:
         self.controllArticle       = controls.article.Article( self.couchDB )
         self.controllArticleModify = controls.articlemodify.ArticleModify( self.couchDB )
         self.controllAuth          = controls.auth.Auth( self.couchDB )
+        self.controllConf          = controls.config.Config( self.couchDB )
         self.controllTags          = controls.tags.Tags( self.couchDB )
 
     def set_routs(self):
@@ -160,6 +164,10 @@ class Tuxerjoch:
                        self.home_page.start_get)
         self.app.route('/all_tags', ['GET'],
                        self.controllTags.all_tags_get)
+        self.app.route('/config', ['GET'],
+                       self.controllConf.edit_get)
+        self.app.route('/config', ['POST'],
+                       self.controllConf.edit_post)
         self.app.route('/delete_article', ['POST'],
                        self.controllArticleModify.delete_post)
         self.app.route('/edit_article/<name>', ['GET'],
