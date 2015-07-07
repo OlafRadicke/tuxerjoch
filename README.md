@@ -36,6 +36,13 @@ and host ware tuxerjoch is listening. **"log_level"** can have the value:
 * INFO
 * ERROR
 
+The fresh installed system have the default password "tuxerjoch". After the
+first login you can and need to change this. Click on "Einstellung" in top.
+
+If you forgot your password then you can delete the document "global_config" in
+the CouchDB and restart the application. After then the default password is
+recovered.
+
 # docker #
 
 If you like using docker for CouchDB then do this:
@@ -73,7 +80,7 @@ The origin file is licensed under the Creative Commons Attribution-Share Alike
 
 # The name TUXERJOCH #
 
-why the name TUXERJOCH? Well i was looking for neutral name, but I had no
+why the name TUXERJOCH? Well I was looking for neutral name, but I had no
 ideas. So I used the random function of German Wikipedia and get this name.
 
 https://en.wikipedia.org/wiki/Tuxer_Joch
