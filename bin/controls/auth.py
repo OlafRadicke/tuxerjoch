@@ -13,12 +13,6 @@ class Auth:
         self.couchDB = couchDB
 
 
-    def hash_password( self, password ):
-        # uuid is used to generate a random number
-        salt = uuid.uuid4().hex
-        return hashlib.sha256(salt.encode() + password.encode()).hexdigest() + ':' + salt
-        # print( hashlib.sha256("tuxerjoch".encode() + tuxerjoch.encode()).hexdigest() + ':' + "tuxerjoch" )
-
     def check_password( self, input_password ):
         response = self.couchDB.getDocValue( "global_config" )
         global_config_data = json.loads(response.text, 'utf8')
@@ -91,3 +85,6 @@ def authenticated_check( couchDB ):
         "authenticated",
         secret = global_config_data["cookie_secret_key"])
     return authenticated
+
+def hash_password( password, salt ):
+    return hashlib.sha256( salt.encode() + password.encode() ).hexdigest()

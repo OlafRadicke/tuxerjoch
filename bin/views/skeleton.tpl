@@ -22,9 +22,9 @@ Supported Level:
 % if flashed_message != '':
     <div class="row">
         <div class="col-md-12 text-center">
-            <p class="bg-{{flashed_level}}">
-                <div>{{ flashed_message }}</div>
-            </p>
+            <div class="bg-{{flashed_level}}">
+                <h1>{{ flashed_message }}</h1>
+            </div>
         </div>
     </div>
 % end

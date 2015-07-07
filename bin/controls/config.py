@@ -16,6 +16,11 @@ class Config:
 
     def edit_get(self):
         '''The GET controller for creating new artikle page'''
+        logging.info("-------INFO--------")
+        logging.debug("-------DEBUG--------")
+        logging.error("-------ERROR--------")
+
+
         authenticated = controls.auth.authenticated_check( self.couchDB )
         if authenticated == None:
             bottle.redirect("/login")
@@ -40,49 +45,74 @@ class Config:
         if authenticated == None:
             bottle.redirect("/login")
         flashed_message = None
-        uri_id = bottle.request.forms.getunicode('uri_id')
-        title = bottle.request.forms.getunicode('title')
-        teaser_text = simplejson.dumps(  bottle.request.forms.getunicode('teaser_text') )
-        article_text = simplejson.dumps(  bottle.request.forms.getunicode('article_text') )
-        tags = bottle.request.forms.getunicode('tags').lower()
-        current_time = datetime.datetime.now(datetime.timezone.utc)
-        unix_timestamp = current_time.timestamp()
-        # extrahieren mit
-        # nowstr = datetime.datetime.fromtimestamp( 1435737606.983997 )
-        if (uri_id == None) or (uri_id == "" ):
-            uri_id = self.couchDB.getUUID()
-        else:
-            uri_id = uri_id.lower()
-            uri_id = uri_id.strip()
-            # Remove special characters
-            uri_id = re.sub('[^a-zA-Z0-9-_*.]', '', uri_id)
-        uri_id = "blog_articel_" + uri_id
-        if (title == "") or (article_text == "") or (teaser_text == ""):
-            block_new_article = bottle.template(
-                'block_new_article',
-                flashed_message="Unvollständige Angaben!")
 
-            return bottle.template(
+        global_config = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
+
+        rev_id = bottle.request.forms.getunicode('rev_id')
+        global_config["cookie_live_time"]  = int( bottle.request.forms.getunicode('cookie_live_time') )
+        global_config["result_limit"]  = int( bottle.request.forms.getunicode('result_limit') )
+        new_password = bottle.request.forms.getunicode('new_password')
+        new_password_verify = bottle.request.forms.getunicode('new_password_verify')
+
+        if new_password != "" and new_password_verify == new_password:
+            salt = self.couchDB.getUUID()
+            global_config["salt"] = salt
+            global_config["passwd_hash"] = controls.auth.hash_password( new_password, salt )
+
+            logging.info( "I will insert document: ")
+            logging.info( simplejson.dumps( global_config ) )
+            response = self.couchDB.insertNamedDoc(
+                "global_config",
+                simplejson.dumps( global_config ) )
+            response_data = json.loads(response.text, 'utf8')
+            if "error" in response_data:
+                flashed_message = response_data["error"] + ": " + response_data["reason"]
+                logging.error( response.text )
+                block_edit_config = bottle.template(
+                    'block_edit_config',
+                    global_config=global_config)
+
+                html_code = bottle.template(
+                    'skeleton',
+                    uri_prefix="../",
+                    title= "Konfiguration",
+                    flashed_message=flashed_message,
+                    flashed_level="danger",
+                    authenticated=authenticated,
+                    main_area=block_edit_config)
+                return html_code
+            else:
+                flashed_message = "Änderungen wurden gespeichert"
+                logging.info( "Änderungen wurden gespeichert" )
+                logging.info( response.text )
+                block_edit_config = bottle.template(
+                    'block_edit_config',
+                    global_config=global_config)
+
+                html_code = bottle.template(
+                    'skeleton',
+                    uri_prefix="../",
+                    title= "Konfiguration",
+                    flashed_message=flashed_message,
+                    flashed_level="success",
+                    authenticated=authenticated,
+                    main_area=block_edit_config)
+                return html_code
+        else:
+
+            flashed_message = "Fehler bei der Passworteingabe"
+            logging.error( flashed_message )
+            block_edit_config = bottle.template(
+                'block_edit_config',
+                global_config=global_config)
+
+            html_code = bottle.template(
                 'skeleton',
-                title="Neuer Artikel",
+                uri_prefix="../",
+                title= "Konfiguration",
+                flashed_message=flashed_message,
+                flashed_level="danger",
                 authenticated=authenticated,
-                main_area=block_new_article)
+                main_area=block_edit_config)
+            return html_code
 
-        else:
-            #print( article_text )
-            json_code = '{ \n'
-            json_code += '"document_type": "blog_article", \n'
-            json_code += '"uri_id": "' + uri_id + '", \n'
-            json_code += '"title": "' + title + '", \n'
-            json_code += '"teaser": ' + teaser_text + ', \n'
-            json_code += '"article_text": ' + article_text + ', \n'
-            json_code += '"created": ' + str(unix_timestamp) + ', \n'
-            json_code += '"last_update": ' + str(unix_timestamp) + ', \n'
-            json_code += '"tags": ["' + '","'.join( tags.split() ) + '"] \n'
-            json_code += '}'
-
-        logging.info( "Insert document: ")
-        logging.info( json_code )
-        #response = self.couchDB.insertNamedDoc( uri_id, json_code )
-        logging.info( response.text )
-        bottle.redirect("/")

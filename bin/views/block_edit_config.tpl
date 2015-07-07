@@ -12,7 +12,7 @@
                 <input
                     class="form-control"
                     id="cookie_live_time"
-                    type="text"
+                    type="number"
                     name="cookie_live_time"
                     value="{{global_config["cookie_live_time"]}}">
             </div>
@@ -36,9 +36,9 @@
                 <br>
                 <input
                     class="form-control"
-                    id="new_password2"
+                    id="new_password_verify"
                     type="password"
-                    name="new_password2"
+                    name="new_password_verify"
                     placeholder="Neues Passwort wiederholen">
             </div>
             <button
