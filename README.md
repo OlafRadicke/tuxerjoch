@@ -41,7 +41,8 @@ first login you can and need to change this. Click on "Einstellung" in top.
 
 If you forgot your password then you can delete the document "global_config" in
 the CouchDB and restart the application. After then the default password is
-recovered.
+recovered. You can use the webinterface of couchDB easily. Call
+http://localhost:5984/ in your Browser.
 
 # docker #
 
