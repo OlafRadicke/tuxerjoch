@@ -29,8 +29,8 @@ there is a configuration file with name ./tuxerjoch.conf
 >     "log_level": "DEBUG"
 > }
 
-''"couch_*"'' is the couch db configuration. ''"webservice_*"'' is port
-and host ware tuxerjoch is listening. ''"log_level"'' can have the value:
+**"couch_*"** is the couch db configuration. **"webservice_*"** is port
+and host ware tuxerjoch is listening. **"log_level"** can have the value:
 
 * DEBUG
 * INFO
