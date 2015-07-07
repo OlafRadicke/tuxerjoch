@@ -7,7 +7,7 @@
     <p>
         <b>Schlagworte:</b>
         % for item in artikle["tags"]:
-            <a href="tags/{{item}}">{{item}}</a> 
+            <a href="../tags/{{item}}">{{item}}</a>
         % end
         <br>
         % if authenticated == "true":
