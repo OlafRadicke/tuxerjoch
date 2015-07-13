@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 4
+Version: 5
 Group: web
 License: AGPL
 Release: 1
