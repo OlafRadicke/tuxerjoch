@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 3
+Version: 4
 Group: web
 License: AGPL
 Release: 1
@@ -48,10 +48,10 @@ rm -Rvf ./tuxerjoch-master
 %post
 if [ $1 -eq 1 ]; then
     echo "First install"
-    useradd tuxerjoch
 else
     echo "Upgrade"
 fi
+useradd tuxerjoch
 
 systemctl daemon-reload
 # systemctl start tuxerjoch.service
