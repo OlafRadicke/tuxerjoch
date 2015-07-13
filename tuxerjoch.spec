@@ -20,8 +20,7 @@ Verry simple weblog. Based on bottle and CouchDB.
 
 %install
 
-rm -Rvf %{_builddir}/*
-
+#rm -Rvf %{_builddir}/*
 if [ $1 -eq 1 ]; then
     echo "First install"
 else
@@ -35,11 +34,12 @@ cd tuxerjoch-master
 ls -lah
 
 mkdir -p %{buildroot}/usr/local/lib/%{name}
-cp -Rv ./bin/* %{buildroot}/usr/local/lib/%{name}/
-cp -Rv ./README.md %{buildroot}/usr/local/lib/%{name}/
-cp -Rv ./LICENSE %{buildroot}/usr/local/lib/%{name}/
 mkdir -p %{buildroot}/usr/lib/systemd/system/
-cp ./tuxerjoch.service  %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
+
+cp -Rv ./bin/*               %{buildroot}/usr/local/lib/%{name}/
+cp -v ./README.md            %{buildroot}/usr/local/lib/%{name}/
+cp -v ./LICENSE              %{buildroot}/usr/local/lib/%{name}/
+cp -v ./tuxerjoch.service    %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
 
 cd ..
 rm -Rvf ./tuxerjoch-master
@@ -54,15 +54,14 @@ systemctl daemon-reload
 %clean
 # rm -Rvf /tmp/master.zip /tmp/cxxtools-master
 #rm -fr $RPM_BUILD_ROOT
-
+rm -Rvf %{_builddir}/*
 %postun
-
-
-
 
 %files
 /usr/local/lib/%{name}/
 /usr/lib/systemd/system/tuxerjoch.service
+
+/root/rpmbuild/BUILDROOT/tuxerjoch-2-1.x86_64/usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
 
