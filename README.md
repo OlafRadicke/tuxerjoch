@@ -5,7 +5,7 @@ Source code / website:
 https://github.com/OlafRadicke/tuxerjoch
 
 
-# Abhängigkeiten #
+# Dependencies #
 
 * python3
 * python3-requests
@@ -13,21 +13,33 @@ https://github.com/OlafRadicke/tuxerjoch
 * python3-simplejson
 * python3-cherrypy
 
+# (pre) install #
+
+## Build a rpm ##
+
+For installation over rpm you can build a rpm with this command:
+
+```
+> rpmbuild -bb ./tuxerjoch.spec
+```
+
 # Configuration #
 
 there is a configuration file with name ./tuxerjoch.conf
 
-> {
->     "couch_host": "127.0.0.1",
->     "couch_port": "5984",
->     "couch_user": "admin",
->     "couch_passwd": "admin",
->     "couch_db": "tuxerjoch",
->     "webservice_host": "127.0.0.1",
->     "webservice_port": "8080",
->     "log_file": "tuxerjoch.log",
->     "log_level": "DEBUG"
-> }
+```
+ {
+     "couch_host": "127.0.0.1",
+     "couch_port": "5984",
+     "couch_user": "admin",
+     "couch_passwd": "admin",
+     "couch_db": "tuxerjoch",
+     "webservice_host": "127.0.0.1",
+     "webservice_port": "8080",
+     "log_file": "tuxerjoch.log",
+     "log_level": "DEBUG"
+ }
+```
 
 **"couch_*"** is the couch db configuration. **"webservice_*"** is port
 and host ware tuxerjoch is listening. **"log_level"** can have the value:
@@ -44,7 +56,7 @@ the CouchDB and restart the application. After then the default password is
 recovered. You can use the webinterface of couchDB easily. Call
 http://localhost:5984/ in your Browser.
 
-# docker #
+# CouchDB with docker #
 
 If you like using docker for CouchDB then do this:
 
