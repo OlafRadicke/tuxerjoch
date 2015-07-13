@@ -39,7 +39,7 @@ cp -Rv ./bin/* %{buildroot}/usr/local/lib/%{name}/
 cp -Rv ./README.md %{buildroot}/usr/local/lib/%{name}/
 cp -Rv ./LICENSE %{buildroot}/usr/local/lib/%{name}/
 mkdir -p %{buildroot}/usr/lib/systemd/system/
-cp tuxerjoch.service  %{buildroot}/usr/lib/systemd/system/
+cp ./tuxerjoch.service  %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
 
 cd ..
 rm -Rvf ./tuxerjoch-master
