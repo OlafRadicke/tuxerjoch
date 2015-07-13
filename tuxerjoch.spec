@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 2
+Version: 3
 Group: web
 License: AGPL
 Release: 1
@@ -72,6 +72,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
-* Sun Jul 12 2015 briefkasten@olaf-radicke.de - 1
+* Sun Jul 12 2015 briefkasten@olaf-radicke.de - 3.1
+- System user für den Service hinzugefügt.
+* Sun Jul 12 2015 briefkasten@olaf-radicke.de - 1.1
 - Init-Version.
 
