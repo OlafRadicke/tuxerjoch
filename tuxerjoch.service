@@ -1,0 +1,17 @@
+[Unit]
+Description=tuxerjoch server
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/usr/local/lib/tuxerjoch
+ExecStart=/usr/bin/python /usr/local/lib/tuxerjoch/tuxerjoch.py
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
