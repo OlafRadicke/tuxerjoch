@@ -16,7 +16,7 @@ Verry simple weblog. Based on bottle and CouchDB.
 
 #%prep
 
-%build
+#%build
 
 %install
 if [ $1 -eq 1 ]; then
