@@ -7,11 +7,11 @@ https://github.com/OlafRadicke/tuxerjoch
 
 # Abhängigkeiten #
 
-python3
-python3-requests
-python3-bottle
-python3-simplejson
-python3-cherrypy
+* python3
+* python3-requests
+* python3-bottle
+* python3-simplejson
+* python3-cherrypy
 
 # Configuration #
 
