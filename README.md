@@ -25,7 +25,7 @@ For installation over rpm you can build a rpm with this command:
 
 # Configuration #
 
-there is a configuration file with name ./tuxerjoch.conf
+there is a configuration file with name ./tuxerjoch.conf has this content:
 
 ```
  {
@@ -47,6 +47,8 @@ and host ware tuxerjoch is listening. **"log_level"** can have the value:
 * DEBUG
 * INFO
 * ERROR
+
+The configuration file is located in /etc or in the installation path.
 
 The fresh installed system have the default password "tuxerjoch". After the
 first login you can and need to change this. Click on "Einstellung" in top.

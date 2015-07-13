@@ -1,6 +1,7 @@
 import bottle
 import json
 import logging
+import os.path
 
 import controls.article
 import controls.articlemodify
@@ -26,8 +27,12 @@ class Tuxerjoch:
 
     def read_config(self):
         '''Reade config file '''
-        with open("tuxerjoch.conf") as json_file:
-            self.config_data = json.load(json_file)
+        if os.path.isfile("tuxerjoch.conf"):
+            with open("tuxerjoch.conf") as json_file:
+                self.config_data = json.load(json_file)
+        else
+            with open("/etc/tuxerjoch.conf") as json_file:
+                self.config_data = json.load(json_file)
 
     def config_logger(self):
         '''Prepare logger'''

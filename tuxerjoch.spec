@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 1
+Version: 2
 Group: web
 License: AGPL
 Release: 1
@@ -38,12 +38,16 @@ mkdir -p %{buildroot}/usr/local/lib/%{name}
 cp -Rv ./bin/* %{buildroot}/usr/local/lib/%{name}/
 cp -Rv ./README.md %{buildroot}/usr/local/lib/%{name}/
 cp -Rv ./LICENSE %{buildroot}/usr/local/lib/%{name}/
+[ -f /usr/lib/systemd/system/tuxerjoch.service ] || cp tuxerjoch.service  /usr/lib/systemd/system/
 
 cd ..
 rm -Rvf ./tuxerjoch-master
 
 
 %post
+systemctl daemon-reload
+systemctl start onair2.service
+systemctl enable onair2.service
 
 
 %clean
@@ -57,6 +61,7 @@ rm -Rvf ./tuxerjoch-master
 
 %files
 /usr/local/lib/%{name}/
+/usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
 
