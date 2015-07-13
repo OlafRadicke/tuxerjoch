@@ -46,6 +46,13 @@ rm -Rvf ./tuxerjoch-master
 
 
 %post
+if [ $1 -eq 1 ]; then
+    echo "First install"
+    useradd tuxerjoch
+else
+    echo "Upgrade"
+fi
+
 systemctl daemon-reload
 # systemctl start tuxerjoch.service
 # systemctl enable tuxerjoch.service

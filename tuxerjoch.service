@@ -5,8 +5,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
-Group=root
+User=tuxerjoch
+Group=tuxerjoch
 WorkingDirectory=/usr/local/lib/tuxerjoch
 ExecStart=/usr/bin/python /usr/local/lib/tuxerjoch/tuxerjoch.py
 
