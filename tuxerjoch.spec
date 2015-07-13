@@ -60,8 +60,6 @@ rm -Rvf %{_builddir}/*
 %files
 /usr/local/lib/%{name}/
 /usr/lib/systemd/system/tuxerjoch.service
-
-/root/rpmbuild/BUILDROOT/tuxerjoch-2-1.x86_64/usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
 
