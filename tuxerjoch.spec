@@ -19,6 +19,9 @@ Verry simple weblog. Based on bottle and CouchDB.
 #%build
 
 %install
+
+rm -Rvf %{_builddir}/*
+
 if [ $1 -eq 1 ]; then
     echo "First install"
 else
