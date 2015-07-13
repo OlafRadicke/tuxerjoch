@@ -5,9 +5,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=tuxerjoch
-Group=tuxerjoch
-WorkingDirectory=/usr/local/lib/tuxerjoch
+User=root
+Group=root
+WorkingDirectory=/home/tuxerjoch
 ExecStart=/usr/bin/python /usr/local/lib/tuxerjoch/tuxerjoch.py
 
 # Give a reasonable amount of time for the server to start up/shut down

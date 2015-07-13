@@ -72,6 +72,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Tue Jul 14  2015 briefkasten@olaf-radicke.de - 5.1
+- Systemd hat probleme wenn tuxerjoch nicht unter Benutzer root läuft.
 * Sun Jul 12 2015 briefkasten@olaf-radicke.de - 3.1
 - System user für den Service hinzugefügt.
 * Sun Jul 12 2015 briefkasten@olaf-radicke.de - 1.1
