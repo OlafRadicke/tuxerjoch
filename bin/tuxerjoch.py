@@ -30,7 +30,7 @@ class Tuxerjoch:
         if os.path.isfile("tuxerjoch.conf"):
             with open("tuxerjoch.conf") as json_file:
                 self.config_data = json.load(json_file)
-        else
+        else:
             with open("/etc/tuxerjoch.conf") as json_file:
                 self.config_data = json.load(json_file)
 
