@@ -38,7 +38,8 @@ mkdir -p %{buildroot}/usr/local/lib/%{name}
 cp -Rv ./bin/* %{buildroot}/usr/local/lib/%{name}/
 cp -Rv ./README.md %{buildroot}/usr/local/lib/%{name}/
 cp -Rv ./LICENSE %{buildroot}/usr/local/lib/%{name}/
-[ -f /usr/lib/systemd/system/tuxerjoch.service ] || cp tuxerjoch.service  /usr/lib/systemd/system/
+mkdir -p %{buildroot}/usr/lib/systemd/system/
+cp tuxerjoch.service  %{buildroot}/usr/lib/systemd/system/
 
 cd ..
 rm -Rvf ./tuxerjoch-master
@@ -46,8 +47,8 @@ rm -Rvf ./tuxerjoch-master
 
 %post
 systemctl daemon-reload
-systemctl start onair2.service
-systemctl enable onair2.service
+# systemctl start tuxerjoch.service
+# systemctl enable tuxerjoch.service
 
 
 %clean
