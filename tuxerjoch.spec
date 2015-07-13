@@ -8,7 +8,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 URL: https://github.com/OlafRadicke/tuxerjoch
 BuildArch: noarch
 BuildRequires: unzip, wget
-Requires: python3, python3-requests, python3-bottle, python3-simplejson, python3-cherrypy
+#Requires: python3, python3-requests, python3-bottle, python3-simplejson, python3-cherrypy
 
 
 %description
