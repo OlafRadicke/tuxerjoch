@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 7
+Version: 8
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Tue Jul 14  2015 briefkasten@olaf-radicke.de - 8.1
+- Fixing: local variable response_data referenced before assignment.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 7.1
 - Fehlermeldung bei fehlender Tag-Liste korrigiert.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 6.1

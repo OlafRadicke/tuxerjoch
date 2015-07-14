@@ -55,7 +55,7 @@ class Tags:
         if "error" in tag_statistics:
             if tag_statistics["error"] == "not_found":
                 logging.info( "Can not found document tag_statistics." )
-                flashed_message = response_data["error"] + ": " + response_data["reason"]
+                flashed_message = tag_statistics["error"] + ": " + tag_statistics["reason"]
                 logging.error( flashed_message )
                 block_error = bottle.template(
                     'block_error',
