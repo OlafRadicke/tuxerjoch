@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Tue Jul 14  2015 briefkasten@olaf-radicke.de - 7.1
+- Fehlermeldung bei fehlender Tag-Liste korrigiert.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 6.1
 - Die ausgeliferte Konfiguration bekommt die Ändung sample.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 5.1
