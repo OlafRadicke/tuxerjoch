@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 5
+Version: 6
 Group: web
 License: AGPL
 Release: 1
@@ -39,6 +39,7 @@ mkdir -p %{buildroot}/usr/lib/systemd/system/
 cp -Rv ./bin/*               %{buildroot}/usr/local/lib/%{name}/
 cp -v ./README.md            %{buildroot}/usr/local/lib/%{name}/
 cp -v ./LICENSE              %{buildroot}/usr/local/lib/%{name}/
+mv %{buildroot}/usr/local/lib/%{name}/%{name}.conf %{buildroot}/usr/local/lib/%{name}/%{name}.conf.sample
 cp -v ./tuxerjoch.service    %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
 
 cd ..
@@ -72,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Tue Jul 14  2015 briefkasten@olaf-radicke.de - 6.1
+- Die ausgeliferte Konfiguration bekommt die Ändung sample.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 5.1
 - Systemd hat probleme wenn tuxerjoch nicht unter Benutzer root läuft.
 * Sun Jul 12 2015 briefkasten@olaf-radicke.de - 3.1
