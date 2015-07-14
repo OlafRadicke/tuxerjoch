@@ -54,27 +54,20 @@ class Tags:
         tag_statistics = json.loads(response.text, 'utf8')
         if "error" in tag_statistics:
             if tag_statistics["error"] == "not_found":
-                logging.info( "Can not found document tag_statistics and create with default password" )
-                json_code = self.gen_json_tag_statistics()
-                tag_statistics = json.loads( json_code, 'utf8')
-                response = self.couchDB.insertNamedDoc( "tag_statistics", json_code )
-                response_data = json.loads(response.text, 'utf8')
-                if "error" in tag_statistics:
-                    flashed_message = response_data["error"] + ": " + response_data["reason"]
-                    logging.error( flashed_message )
-                    block_error = bottle.template(
-                        'block_error',
-                        flashed_message=flashed_message )
+                logging.info( "Can not found document tag_statistics." )
+                flashed_message = response_data["error"] + ": " + response_data["reason"]
+                logging.error( flashed_message )
+                block_error = bottle.template(
+                    'block_error',
+                    flashed_message=flashed_message )
 
-                    html_code = bottle.template(
-                        'skeleton',
-                        uri_prefix="../",
-                        title= "Fehler",
-                        authenticated=authenticated,
-                        main_area=block_error)
-                    return html_code
-                else:
-                    logging.info( response.text )
+                html_code = bottle.template(
+                    'skeleton',
+                    uri_prefix="../",
+                    title= "Fehler",
+                    authenticated=authenticated,
+                    main_area=block_error)
+                return html_code
             else:
                 flashed_message = tag_statistics["error"] + ": " + tag_statistics["reason"]
                 logging.error( flashed_message )
