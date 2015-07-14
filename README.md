@@ -1,12 +1,12 @@
 TUXERJOCH
----------
+=========
 
 Source code / website:
 https://github.com/OlafRadicke/tuxerjoch
 
 # Project mission #
 
-TUXERJOCH is only a proof of concept. 
+TUXERJOCH is only a proof of concept.
 
 
 # Dependencies #
