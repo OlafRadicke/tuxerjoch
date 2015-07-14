@@ -4,6 +4,10 @@ TUXERJOCH
 Source code / website:
 https://github.com/OlafRadicke/tuxerjoch
 
+# Project mission #
+
+TUXERJOCH is only a proof of concept. 
+
 
 # Dependencies #
 
@@ -85,6 +89,14 @@ http://bottlepy.org/docs/dev/tutorial.html
 ## attachment ##
 
 http://docs.couchdb.org/en/latest/api/document/attachments.html
+
+## Dump function ##
+
+For backups
+
+## RSS feeds ##
+
+Coming soon
 
 # Picture resources #
 
