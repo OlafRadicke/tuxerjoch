@@ -31,6 +31,7 @@ class Tuxerjoch:
             with open("tuxerjoch.conf") as json_file:
                 self.config_data = json.load(json_file)
         else:
+            logging.debug("No local configuraton found. go continus with /etc/tuxerjoch.conf...")
             with open("/etc/tuxerjoch.conf") as json_file:
                 self.config_data = json.load(json_file)
 
