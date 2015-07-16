@@ -93,7 +93,7 @@ Coming soon
 # Picture resources #
 
 The alpen picture is form
-https://commons.wikimedia.org/wiki/File:Kronplatz_Nordf%C3%B6hn04_2013-01-08.jpg
+[commons.wikimedia.org](https://commons.wikimedia.org/wiki/File:Kronplatz_Nordf%C3%B6hn04_2013-01-08.jpg)
 The origin file is licensed under the Creative Commons Attribution-Share Alike
 3.0 Unported license.
 
