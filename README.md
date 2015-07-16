@@ -57,10 +57,12 @@ The configuration file is located in /etc or in the installation path.
 The fresh installed system have the default password "tuxerjoch". After the
 first login you can and need to change this. Click on "Einstellung" in top.
 
+## Password reset ##
+
 If you forgot your password then you can delete the document "global_config" in
 the CouchDB and restart the application. After then the default password is
 recovered. You can use the webinterface of couchDB easily. Call
-http://localhost:5984/ in your Browser.
+[http://127.0.0.1:5984/_utils/](http://127.0.0.1:5984/_utils/) in your Browser.
 
 # CouchDB with docker #
 

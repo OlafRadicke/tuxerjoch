@@ -2,6 +2,7 @@ import bottle
 import json
 import logging
 import os.path
+import datetime
 
 import controls.article
 import controls.articlemodify
@@ -22,6 +23,7 @@ class Tuxerjoch:
         self.check_database_status()
         self.check_password_protection()
         self.check_designs()
+        self.check_tag_statistics()
         self.init_controller()
         self.set_routs()
 
@@ -113,9 +115,9 @@ class Tuxerjoch:
     def check_designs( self ):
         '''Check and prepare designs'''
         response = self.couchDB.getDesignCode("blog_article")
-        global_config_data = json.loads(response.text, 'utf8')
-        if "error" in global_config_data:
-            if global_config_data["error"] == "not_found":
+        blog_article_data = json.loads(response.text, 'utf8')
+        if "error" in blog_article_data:
+            if blog_article_data["error"] == "not_found":
                 logging.info( "Can not found designs / views and will create this now with defaults" )
                 json_doc = '''{  \n
     "_id": "_design/blog_article", \n
@@ -138,7 +140,26 @@ class Tuxerjoch:
                 logging.info(response.text)
             else:
                 logging.error( "Unknown error: " )
-                logging.error( global_config_data["error"] + ": " + global_config_data["reason"] )
+                logging.error( blog_article_data["error"] + ": " + blog_article_data["reason"] )
+
+    def check_tag_statistics( self ):
+        '''Check and prepare tag_statistics document'''
+        response = self.couchDB.getDocValue( "tag_statistics" )
+        tag_statistics_data = json.loads(response.text, 'utf8')
+        if "error" in tag_statistics_data:
+            if tag_statistics_data["error"] == "not_found":
+                logging.info( "Can not found tag statistic and will create this now with defaults" )
+                current_time = datetime.datetime.now(datetime.timezone.utc)
+                unix_timestamp = current_time.timestamp()
+                json_code = '{ \n'
+                json_code += '    "last_update": ' + str(unix_timestamp) + ', \n'
+                json_code += '    "statistics": {} \n'
+                json_code += '}'
+
+                response = self.couchDB.insertNamedDoc( "tag_statistics", json_code )
+                logging.debug(response.headers)
+                logging.info( response.text )
+
 
     def static_file_get( self, filename ):
         '''Get back static content'''
