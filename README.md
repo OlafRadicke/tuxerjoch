@@ -29,7 +29,8 @@ For installation over rpm you can build a rpm with this command:
 
 # Configuration #
 
-there is a configuration file with name ./tuxerjoch.conf has this content:
+You are need a configuration file with name ./tuxerjoch.conf in the working
+directory or under /etc/ with this content:
 
 ```
  {
@@ -46,27 +47,29 @@ there is a configuration file with name ./tuxerjoch.conf has this content:
 ```
 
 **"couch_*"** is the couch db configuration. **"webservice_*"** is port
-and host ware tuxerjoch is listening. **"log_level"** can have the value:
+and host name configuration where  tuxerjoch service is listening. The
+**"log_level"** can have the value:
 
 * DEBUG
 * INFO
 * ERROR
 
-The configuration file is located in /etc or in the installation path.
 
 The fresh installed system have the default password "tuxerjoch". After the
-first login you can and need to change this. Click on "Einstellung" in top.
+first login you can and need to change this. Click on "Einstellung" in
+top of the page to change this.
 
 ## Password reset ##
 
 If you forgot your password then you can delete the document "global_config" in
-the CouchDB and restart the application. After then the default password is
-recovered. You can use the webinterface of couchDB easily. Call
+the CouchDB and restart the application. After then the default password
+"tuxerjoch" is recovered. You can use the webinterface of couchDB to delete
+easily the document "global_config". Call url
 [http://127.0.0.1:5984/_utils/](http://127.0.0.1:5984/_utils/) in your Browser.
 
 # CouchDB with docker #
 
-If you like using docker for CouchDB then do this:
+If you like using docker for CouchDB then check this:
 
 > docker pull fedora/couchdb
 
