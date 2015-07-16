@@ -32,7 +32,7 @@ Supported Level:
     <div class="row">
         <div class="col-md-12 text-center">
             <img class="img-responsive center-block" src="/pics/alpen_small.jpg" />
-            <h1 class="col-md-12 .text-center"><a href="/"><t>the independent friend</t></a></h1>
+            <h1 class="col-md-12 .text-center"><a href="/"><t>THE INDEPENDENT FRIEND</t></a></h1>
         </div>
     </div>
 <!-- Menu -->

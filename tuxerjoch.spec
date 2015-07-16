@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 8
+Version: 9
 Group: web
 License: AGPL
 Release: 1
@@ -41,7 +41,6 @@ cp -v ./README.md            %{buildroot}/usr/local/lib/%{name}/
 cp -v ./LICENSE              %{buildroot}/usr/local/lib/%{name}/
 mv %{buildroot}/usr/local/lib/%{name}/%{name}.conf %{buildroot}/usr/local/lib/%{name}/%{name}.conf.sample
 cp -v ./tuxerjoch.service    %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
-
 cd ..
 rm -Rvf ./tuxerjoch-master
 
@@ -67,12 +66,15 @@ rm -Rvf %{_builddir}/*
 
 %files
 /usr/local/lib/%{name}/
+%config
 /usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
 
 
 %changelog
+* Thu Jul 16  2015 briefkasten@olaf-radicke.de - 9.1
+- Markiere die Systemd-Config als Konfiguration.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 8.1
 - Fixing: local variable response_data referenced before assignment.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 7.1
