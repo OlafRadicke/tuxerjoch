@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 9
+Version: 10
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Thu Jul 16  2015 briefkasten@olaf-radicke.de - 10.1
+- Bugfix in tag page.
 * Thu Jul 16  2015 briefkasten@olaf-radicke.de - 9.1
 - Markiere die Systemd-Config als Konfiguration.
 * Tue Jul 14  2015 briefkasten@olaf-radicke.de - 8.1
