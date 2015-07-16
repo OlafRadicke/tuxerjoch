@@ -71,20 +71,10 @@ If you like using docker for CouchDB then do this:
 > docker pull fedora/couchdb
 
 # Externe Dokus #
-## CouchDB-REST-API ##
-
-http://docs.couchdb.org/en/latest/api/index.html
-
-## CouchDB-REST-API views ##
-https://wiki.apache.org/couchdb/HTTP_view_API
-
-## python3-requests ##
-
-http://www.pythonforbeginners.com/requests/using-requests-in-python
-
-## Bottle-Docu ##
-
-http://bottlepy.org/docs/dev/tutorial.html
+* **CouchDB-REST-API:** http://docs.couchdb.org/en/latest/api/index.html
+* **CouchDB-REST-API views:** https://wiki.apache.org/couchdb/HTTP_view_API
+* **python3-requests lib:** http://www.pythonforbeginners.com/requests/using-requests-in-python
+* **Bottle-Docu:** http://bottlepy.org/docs/dev/tutorial.html
 
 # Dodos #
 
