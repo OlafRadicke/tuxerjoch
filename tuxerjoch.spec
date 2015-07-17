@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 11
+Version: 12
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Fri Jul 17  2015 briefkasten@olaf-radicke.de - 12.1
+- Remove English in the footer line.
 * Thu Jul 16  2015 briefkasten@olaf-radicke.de - 11.1
 - Bugfix: program generating a empty tag_statistics document, if there not exist.
 * Thu Jul 16  2015 briefkasten@olaf-radicke.de - 10.1

@@ -71,7 +71,7 @@ Supported Level:
     <hr style="width: 80%;height: 2px;margin-left: auto; margin-right: auto; background-color:#FF0066; color:#FF0066; border: 0 none;">
     <div class="row">
         <div class="col-md-12 text-center">
-            power by <a href="https://github.com/OlafRadicke/tuxerjoch">TUXERJOCH</a>
+            <a href="https://github.com/OlafRadicke/tuxerjoch">TUXERJOCH</a>
         </div>
     </div>
 
