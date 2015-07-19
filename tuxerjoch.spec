@@ -74,7 +74,7 @@ rm -Rvf %{_builddir}/*
 
 %changelog
 * Fri Jul 17  2015 briefkasten@olaf-radicke.de - 13.1
-- Remove sytemd configuration.
+- Remove sytemd configuration from spec.
 * Fri Jul 17  2015 briefkasten@olaf-radicke.de - 12.1
 - Remove English in the footer line.
 * Thu Jul 16  2015 briefkasten@olaf-radicke.de - 11.1
