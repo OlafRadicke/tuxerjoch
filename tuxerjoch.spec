@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 12
+Version: 13
 Group: web
 License: AGPL
 Release: 1
@@ -40,7 +40,7 @@ cp -Rv ./bin/*               %{buildroot}/usr/local/lib/%{name}/
 cp -v ./README.md            %{buildroot}/usr/local/lib/%{name}/
 cp -v ./LICENSE              %{buildroot}/usr/local/lib/%{name}/
 mv %{buildroot}/usr/local/lib/%{name}/%{name}.conf %{buildroot}/usr/local/lib/%{name}/%{name}.conf.sample
-cp -v ./tuxerjoch.service    %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
+#cp -v ./tuxerjoch.service    %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
 cd ..
 rm -Rvf ./tuxerjoch-master
 
@@ -67,12 +67,14 @@ rm -Rvf %{_builddir}/*
 %files
 /usr/local/lib/%{name}/
 %config
-/usr/lib/systemd/system/tuxerjoch.service
+#/usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
 
 
 %changelog
+* Fri Jul 17  2015 briefkasten@olaf-radicke.de - 13.1
+- Remove sytemd configuration.
 * Fri Jul 17  2015 briefkasten@olaf-radicke.de - 12.1
 - Remove English in the footer line.
 * Thu Jul 16  2015 briefkasten@olaf-radicke.de - 11.1
