@@ -111,7 +111,7 @@ class Tuxerjoch:
                 logging.error( "Unknown error: " )
                 logging.error( global_config_data["error"] + ": " + global_config_data["reason"] )
         else:
-            logging.error( "I found document global_config. Okay." )
+            logging.info( "I found document global_config. Okay." )
 
     def check_designs( self ):
         '''Check and prepare designs'''
