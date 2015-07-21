@@ -6,6 +6,7 @@ import datetime
 
 import controls.article
 import controls.articlemodify
+import controls.atom_feed
 import controls.auth
 import controls.config
 import controls.home
@@ -178,6 +179,7 @@ class Tuxerjoch:
         self.home_page             = controls.home.Home( self.couchDB )
         self.controllArticle       = controls.article.Article( self.couchDB )
         self.controllArticleModify = controls.articlemodify.ArticleModify( self.couchDB )
+        self.controllAtom          = controls.atom_feed.Atom( self.couchDB, self.config_data )
         self.controllAuth          = controls.auth.Auth( self.couchDB )
         self.controllConf          = controls.config.Config( self.couchDB )
         self.controllTags          = controls.tags.Tags( self.couchDB )
@@ -191,6 +193,8 @@ class Tuxerjoch:
                        self.home_page.start_get)
         self.app.route('/all_tags', ['GET'],
                        self.controllTags.all_tags_get)
+        self.app.route('/rss.xml', ['GET'],
+                       self.controllAtom.feed_get)
         self.app.route('/config', ['GET'],
                        self.controllConf.edit_get)
         self.app.route('/config', ['POST'],

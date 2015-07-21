@@ -1,9 +1,6 @@
 % import datetime
         <div class="list-group">
         % for item in artikles["rows"]:
-
-
-
             <div class="list-group-item">
                 <h4 class="list-group-item-heading"><a href="view_article/{{item["id"]}}">{{item["value"]["title"]}}</a></h4>
                 % datetime_object = datetime.datetime.fromtimestamp(int(item["value"]["last_update"]))

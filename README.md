@@ -27,6 +27,11 @@ For installation over rpm you can build a rpm with this command:
 > rpmbuild -bb ./tuxerjoch.spec
 ```
 
+## RPM repo ##
+
+under [rpm.the-independent-friend.de](https://rpm.the-independent-friend.de/)
+you can find ready complied rpms.
+
 # Configuration #
 
 You are need a configuration file with name ./tuxerjoch.conf in the working
