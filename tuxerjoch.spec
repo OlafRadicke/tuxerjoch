@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 13
+Version: 14
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Fri Jul 17  2015 briefkasten@olaf-radicke.de - 14.1
+- Add rss atom function.
 * Fri Jul 17  2015 briefkasten@olaf-radicke.de - 13.1
 - Remove sytemd configuration from spec.
 * Fri Jul 17  2015 briefkasten@olaf-radicke.de - 12.1
