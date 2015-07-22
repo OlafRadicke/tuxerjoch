@@ -11,7 +11,7 @@ class Atom:
         self.config_data = config_data
 
     def feed_get(self):
-        '''Controller of the start page'''
+        '''Controller of the atom feed page'''
         global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
         response = self.couchDB.getNamedView(
             "blog_article",
@@ -23,6 +23,25 @@ class Atom:
         response.content_type = 'xml/application'
         html_sources = bottle.template(
             'atom',
+            artikles=artikle_list["rows"],
+            hostname=self.config_data["webservice_host"]
+        )
+        return html_sources
+
+
+    def rss_feed_get(self):
+        '''Controller of the atom feed page'''
+        global_config_data = json.loads( self.couchDB.getDocValue( "global_config" ).text, 'utf8')
+        response = self.couchDB.getNamedView(
+            "blog_article",
+            "all?descending=true&limit=" + str(global_config_data["result_limit"]) )
+        artikle_list = json.loads(response.text)
+        if "error" in artikle_list:
+            logging.error( response.text )
+
+        response.content_type = 'xml/application'
+        html_sources = bottle.template(
+            'rss',
             artikles=artikle_list["rows"],
             hostname=self.config_data["webservice_host"]
         )

@@ -195,6 +195,8 @@ class Tuxerjoch:
                        self.controllTags.all_tags_get)
         self.app.route('/atom.xml', ['GET'],
                        self.controllAtom.feed_get)
+        self.app.route('/rss.xml', ['GET'],
+                       self.controllAtom.rss_feed_get)
         self.app.route('/config', ['GET'],
                        self.controllConf.edit_get)
         self.app.route('/config', ['POST'],
