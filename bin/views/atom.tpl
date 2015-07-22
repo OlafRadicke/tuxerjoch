@@ -5,7 +5,7 @@
         <title>{{hostname}}</title>
         <description>The latest Blog Posts</description>
         <link>http://{{hostname}}</link>
-        <atom:link href="http://{{hostname}}/rss.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="http://{{hostname}}/atom.xml" rel="self" type="application/atom+xml" />
         %for post in artikles:
 
         % last_update = datetime.datetime.fromtimestamp(int(post["value"]["last_update"]))

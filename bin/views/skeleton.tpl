@@ -16,7 +16,7 @@ Supported Level:
     <title>{{title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{uri_prefix}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="alternate" type="application/rss+xml"  href="/rss.xml" title="Changed Pages">
+    <link rel="alternate" type="application/atom+xml"  href="/atom.xml" title="Changed Pages">
   </head>
   <body>
 <!-- Page flashed message -->

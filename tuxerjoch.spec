@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 15
+Version: 16
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Wed Jul 22  2015 briefkasten@olaf-radicke.de - 16.1
+- Rename uri path of atom feed.
 * Tue Jul 21  2015 briefkasten@olaf-radicke.de - 15.1
 - Set mime typ of atom feed.
 * Tue Jul 21  2015 briefkasten@olaf-radicke.de - 13.1

@@ -19,10 +19,10 @@ class Atom:
         artikle_list = json.loads(response.text)
         if "error" in artikle_list:
             logging.error( response.text )
-            
+
         response.content_type = 'xml/application'
         html_sources = bottle.template(
-            'rss',
+            'atom',
             artikles=artikle_list["rows"],
             hostname=self.config_data["webservice_host"]
         )
