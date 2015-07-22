@@ -18,8 +18,8 @@
         % last_update = datetime.datetime.fromtimestamp(int(post["value"]["last_update"]))
         % str_date = last_update.strftime('%Y-%m-%d %H:%M:%S')
         <item>
-            <title>{{post["value"]["title"]}}</title>
-            <description>{{post["value"]["teaser"]}}</description>
+            <title><![CDATA[{{post["value"]["title"]}}]]></title>
+            <description><![CDATA[{{post["value"]["teaser"]}}]]></description>
             <link>http://{{hostname}}/view_article/{{post["id"]}}</link>
             <author>http://{{hostname}}</author>
             <guid>http://{{hostname}}/view_article/{{post["id"]}}</guid>

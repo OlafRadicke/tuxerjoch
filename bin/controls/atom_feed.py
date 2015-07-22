@@ -20,7 +20,7 @@ class Atom:
         if "error" in artikle_list:
             logging.error( response.text )
 
-        response.content_type = 'xml/application'
+        response.content_type = 'text/html'
         html_sources = bottle.template(
             'atom',
             artikles=artikle_list["rows"],
@@ -39,7 +39,7 @@ class Atom:
         if "error" in artikle_list:
             logging.error( response.text )
 
-        response.content_type = 'xml/application'
+        response.content_type = 'text/html'
         html_sources = bottle.template(
             'rss',
             artikles=artikle_list["rows"],
