@@ -19,7 +19,7 @@ class Atom:
         artikle_list = json.loads(response.text)
         if "error" in artikle_list:
             logging.error( response.text )
-
+        response.content_type = 'text/html; charset=latin9'
         response.content_type = 'text/html'
         html_sources = bottle.template(
             'atom',

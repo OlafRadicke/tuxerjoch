@@ -1,8 +1,7 @@
 
 % import datetime
-<?xml version="1.0" encoding="utf-8"?>
-
-<rss version="2.0">
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 
     <channel>
         <title>{{hostname}}</title>
@@ -12,6 +11,8 @@
         <copyright>http://{{hostname}}</copyright>
         % current_time = datetime.datetime.now(datetime.timezone.utc)
         <pubDate>{{current_time.strftime('%a, %d %b %Y %H:%M:%S +0000')}}</pubDate>
+        <atom:link href="http://{{hostname}}/rss.xml" rel="self" type="application/rss+xml" />
+
 
         %for post in artikles:
 
@@ -21,7 +22,7 @@
             <title><![CDATA[{{post["value"]["title"]}}]]></title>
             <description><![CDATA[{{post["value"]["teaser"]}}]]></description>
             <link>http://{{hostname}}/view_article/{{post["id"]}}</link>
-            <author>http://{{hostname}}</author>
+<!--             <author>http://{{hostname}}</author> -->
             <guid>http://{{hostname}}/view_article/{{post["id"]}}</guid>
             <pubDate>{{last_update.strftime('%a, %d %b %Y %H:%M:%S +0000')}}</pubDate>
         </item>
