@@ -3,6 +3,7 @@ import json
 import logging
 import os.path
 import datetime
+import simplejson
 
 import controls.article
 import controls.articlemodify
@@ -102,7 +103,8 @@ class Tuxerjoch:
                 # cookie live time maximum age in seconds
                 json_code += '    "cookie_live_time": 7200, \n'
                 json_code += '    "result_sort_descending": "true", \n'
-                json_code += '    "result_limit": 25 \n'
+                json_code += '    "result_limit": 25, \n'
+                json_code += '    "about_text": "Noch nicht gesetzt." \n'
                 json_code += '}'
 
                 response = self.couchDB.insertNamedDoc( "global_config", json_code )
@@ -111,6 +113,19 @@ class Tuxerjoch:
                 logging.error( "Unknown error: " )
                 logging.error( global_config_data["error"] + ": " + global_config_data["reason"] )
         else:
+            # if section about_text not exist than set default
+            if not "about_text" in global_config_data:
+                logging.info( "Can not found section about_text and will create with default value" )
+                global_config_data["about_text"] = "Noch nicht gesetzt"
+                response = self.couchDB.insertNamedDoc(
+                    "global_config",
+                    simplejson.dumps( global_config_data )
+                )
+                response_data = json.loads(response.text, 'utf8')
+                if "error" in response_data:
+                    logging.error( response.text )
+                    return
+
             logging.info( "I found document global_config. Okay." )
 
     def check_designs( self ):
@@ -162,6 +177,7 @@ class Tuxerjoch:
                 logging.info( response.text )
 
 
+
     def static_file_get( self, filename ):
         '''Get back static content'''
         return bottle.static_file(filename, root='static')
@@ -191,6 +207,8 @@ class Tuxerjoch:
         self.app.route('/static/<filename>', ['GET'], self.static_file_get)
         self.app.route('/', ['GET'],
                        self.home_page.start_get)
+        self.app.route('/about', ['GET'],
+                       self.home_page.about_get)
         self.app.route('/all_tags', ['GET'],
                        self.controllTags.all_tags_get)
         self.app.route('/atom.xml', ['GET'],

@@ -6,6 +6,16 @@
                 type="hidden"
                 name="rev_id"
                 value="{{global_config["_rev"]}}">
+            <div class="form-group">
+                <label for="about_text">Text des Impressum (html)*:</label>
+                <textarea
+                    class="form-control"
+                    id="about_text"
+                    name="about_text"
+                    rows="15"
+                    placeholder="Name des Verantwortlichen"
+                    required >{{global_config["about_text"]}}</textarea>
+            </div>
 
             <div class="form-group">
                 <label for="cookie_live_time">Session timeout (sekunden):</label>
@@ -32,6 +42,7 @@
                     id="new_password"
                     type="password"
                     name="new_password"
+                    value=""
                     placeholder="Neues Passwort">
                 <br>
                 <input
@@ -39,6 +50,7 @@
                     id="new_password_verify"
                     type="password"
                     name="new_password_verify"
+                    value=""
                     placeholder="Neues Passwort wiederholen">
             </div>
             <button

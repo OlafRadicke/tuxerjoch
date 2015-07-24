@@ -43,11 +43,13 @@ Supported Level:
             <ul  class="pager"> <!--class="nav nav-pills">-->
                 <li role="presentation"><a href="{{uri_prefix}}all_tags">Schlagworte</a></li>
                 % if authenticated == None:
+                <li role="presentation"><a href="{{uri_prefix}}about">Impressum</a></li>
                 <li role="presentation"><a href="{{uri_prefix}}login">login</a></li>
                 % end
                 % if authenticated == "true":
                 <li role="presentation"><a href="{{uri_prefix}}new_article">Neuer Artikel</a></li>
                 <li role="presentation"><a href="{{uri_prefix}}config">Einstellung</a></li>
+                <li role="presentation"><a href="{{uri_prefix}}about">Impressum</a></li>
                 <li role="presentation"><a href="{{uri_prefix}}logout">logout</a></li>
                 % end
             </ul>
