@@ -10,6 +10,7 @@ import controls.articlemodify
 import controls.atom_feed
 import controls.auth
 import controls.config
+import controls.filemanagement
 import controls.home
 import controls.tags
 import couch_backend.rest
@@ -198,6 +199,7 @@ class Tuxerjoch:
         self.controllAtom          = controls.atom_feed.Atom( self.couchDB, self.config_data )
         self.controllAuth          = controls.auth.Auth( self.couchDB )
         self.controllConf          = controls.config.Config( self.couchDB )
+        self.controllFile          = controls.filemanagement.FileManagement( self.couchDB )
         self.controllTags          = controls.tags.Tags( self.couchDB )
 
     def set_routs(self):
@@ -225,6 +227,12 @@ class Tuxerjoch:
                        self.controllArticleModify.edit_get)
         self.app.route('/edit_article', ['POST'],
                        self.controllArticleModify.edit_post)
+        self.app.route('/filemanagement', ['GET'],
+                       self.controllFile.management_get)
+        self.app.route('/filemanagement', ['POST'],
+                       self.controllFile.upload_post)
+        self.app.route('/edit_article/<name>', ['GET'],
+                       self.controllArticleModify.edit_get)
         self.app.route('/login', ['GET'],
                        self.controllAuth.login_get)
         self.app.route('/login', ['POST'],
