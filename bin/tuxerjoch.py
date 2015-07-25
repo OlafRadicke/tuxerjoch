@@ -227,6 +227,10 @@ class Tuxerjoch:
                        self.controllArticleModify.edit_get)
         self.app.route('/edit_article', ['POST'],
                        self.controllArticleModify.edit_post)
+        self.app.route('/filedelete/<name>', ['GET'],
+                       self.controllFile.filedelete_get)
+        self.app.route('/filedelete/<name>', ['POST'],
+                       self.controllFile.filedelete_post)
         self.app.route('/filemanagement', ['GET'],
                        self.controllFile.management_get)
         self.app.route('/filemanagement', ['POST'],

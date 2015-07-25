@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 20
+Version: 21
 Group: web
 License: AGPL
 Release: 1
@@ -73,8 +73,10 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Sat Jul 25 2015 briefkasten@olaf-radicke.de - 21.1
+- Add a file manager..
 * Wed Jul 22  2015 briefkasten@olaf-radicke.de - 20.1
-- FAdd about site.
+- Add about site.
 * Wed Jul 22  2015 briefkasten@olaf-radicke.de - 19.1
 - Fixes in rss feed function.
 * Wed Jul 22  2015 briefkasten@olaf-radicke.de - 18.1

@@ -1,5 +1,6 @@
 
-    <h1>Bilderverwaltung</h1>
+    <h3>Bilderverwaltung</h3>
+    <h4>Neues Bild hoch laden</h4>
     <p>
 
         <form action="" method="post" enctype="multipart/form-data">
@@ -26,5 +27,11 @@
                 name="save"
                 value="true">Hoch laden</button>
         </form>
+
+        <h4>Verfügbare Bilder Bild</h4>
+        % for filename  in filenames:
+        <ul>
+            <li>{{ filename }} <a href="../pics/{{ filename }}">anzeigen</a> <a href="../filedelete/{{ filename }}">löschen</a></li>
+        </ul>
 
     </p>
