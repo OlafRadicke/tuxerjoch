@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 21
+Version: 22
 Group: web
 License: AGPL
 Release: 1
@@ -61,20 +61,22 @@ systemctl daemon-reload
 %clean
 # rm -Rvf /tmp/master.zip /tmp/cxxtools-master
 #rm -fr $RPM_BUILD_ROOT
-rm -Rvf %{_builddir}/*
+rm -Rvf %{_builddir}/*Show now create date or update date orShow now create date or update date or all together in Artikel. all together in Artikel.
 %postun
 
 %files
 /usr/local/lib/%{name}/
-%config
+%configShow now create date or update date or all together in Artikel.
 #/usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
 
 
 %changelog
+* Sat Jul 25 2015 briefkasten@olaf-radicke.de - 22.1
+- Show now create date or update date or all together in Artikel.
 * Sat Jul 25 2015 briefkasten@olaf-radicke.de - 21.1
-- Add a file manager..
+- Add a file manager.
 * Wed Jul 22  2015 briefkasten@olaf-radicke.de - 20.1
 - Add about site.
 * Wed Jul 22  2015 briefkasten@olaf-radicke.de - 19.1
