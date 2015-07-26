@@ -61,12 +61,12 @@ systemctl daemon-reload
 %clean
 # rm -Rvf /tmp/master.zip /tmp/cxxtools-master
 #rm -fr $RPM_BUILD_ROOT
-rm -Rvf %{_builddir}/*Show now create date or update date or all together in Artikel.
+rm -Rvf %{_builddir}/*
 %postun
 
 %files
 /usr/local/lib/%{name}/
-%configShow now create date or update date or all together in Artikel.
+%config
 #/usr/lib/systemd/system/tuxerjoch.service
 # %dir  /usr/share/doc/olaf-system-post-init/
 
