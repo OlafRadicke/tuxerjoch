@@ -61,7 +61,7 @@ systemctl daemon-reload
 %clean
 # rm -Rvf /tmp/master.zip /tmp/cxxtools-master
 #rm -fr $RPM_BUILD_ROOT
-rm -Rvf %{_builddir}/*Show now create date or update date orShow now create date or update date or all together in Artikel. all together in Artikel.
+rm -Rvf %{_builddir}/*Show now create date or update date or all together in Artikel.
 %postun
 
 %files
