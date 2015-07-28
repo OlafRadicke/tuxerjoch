@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 23
+Version: 24
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Tue Jul 28 2015 briefkasten@olaf-radicke.de - 24.1
+- Bugfix in url route.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 23.1
 - Ingratiate html statistic output from the goaccess tool.
 * Sat Jul 25 2015 briefkasten@olaf-radicke.de - 22.1

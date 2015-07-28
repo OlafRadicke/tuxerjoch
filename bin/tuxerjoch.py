@@ -255,7 +255,7 @@ class Tuxerjoch:
                        self.controlArticle.new_get)
         self.app.route('/new_article', ['POST'],
                        self.controlArticle.new_post)
-        self.app.route('/statistic', ['POST'],
+        self.app.route('/statistic', ['GET'],
                        self.controlStatistic.statistic_get)
         self.app.route('/tags/<tag_name>', ['GET'],
                        self.controlTags.tags_get)
