@@ -2,10 +2,8 @@
 
 import bottle
 import json
-import simplejson
-import datetime
-import re
 import logging
+import os.path
 
 import controls.auth
 
