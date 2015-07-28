@@ -25,7 +25,9 @@ class Statistic:
 
         if os.path.isfile( global_config_data["statistic_report"] ):
             with open( global_config_data["statistic_report"] ) as html_statistic:
-                print( html_statistic )
+                html_statistic_data = html_statistic.read()
+                html_statistic.close()
+
         else:
             logging.error( "Can not open " + global_config_data["statistic_report"])
 
@@ -39,10 +41,5 @@ class Statistic:
                 authenticated=authenticated)
             return html_out
 
-        html_out = bottle.template(
-            'skeleton',
-            uri_prefix="../",
-            title="Statistik",
-            authenticated=authenticated,
-            main_area=html_statistic)
-        return html_out
+
+        return html_statistic_data
