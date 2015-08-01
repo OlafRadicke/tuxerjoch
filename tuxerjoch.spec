@@ -31,8 +31,6 @@ wget https://github.com/OlafRadicke/tuxerjoch/archive/master.zip
 unzip -u master.zip
 ls -lah
 cd tuxerjoch-master
-* Tue Jul 28 2015 briefkasten@olaf-radicke.de - 24.1
-- Bugfix in file reading operation.
 ls -lah
 
 mkdir -p %{buildroot}/usr/local/lib/%{name}
@@ -75,14 +73,14 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
-* Sat Aug  1  2015 briefkasten@olaf-radicke.de - 27.1
-- Bugfix in file reading operation.
+* Sat Aug  1 2015 briefkasten@olaf-radicke.de - 27.1
+- Bugfix in article list: Remove html filter.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 26.1
 - Bugfix in file reading operation.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 25.1
 - Include bugfix.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 24.1
-- Bugfix in article list: Remove html filter.
+- Bugfix in url route.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 23.1
 - Ingratiate html statistic output from the goaccess tool.
 * Sat Jul 25 2015 briefkasten@olaf-radicke.de - 22.1
