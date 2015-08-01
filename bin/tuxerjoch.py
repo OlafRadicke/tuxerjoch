@@ -262,6 +262,8 @@ class Tuxerjoch:
         self.app.route('/view_article/<name>', ['GET'],
                        self.controlArticle.view_article_get)
 
+
+
     def run(self):
         '''Start listening'''
         bottle.run(

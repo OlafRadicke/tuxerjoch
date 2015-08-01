@@ -19,7 +19,7 @@
                     % end
                 </p>
 
-                <p>{{item["value"]["teaser"]}} &#91;<a href="view_article/{{item["id"]}}">Weiterlesen...</a>&#93;</p>
+                <p>{{!item["value"]["teaser"]}} &#91;<a href="view_article/{{item["id"]}}">Weiterlesen...</a>&#93;</p>
                 <p>Kategorie:
                 % for tag in item["value"]["tags"]:
                     <a href="tags/{{tag}}">{{tag}}</a>
