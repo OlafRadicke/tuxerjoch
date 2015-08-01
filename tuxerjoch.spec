@@ -75,13 +75,13 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
-* Tue Jul 28 2015 briefkasten@olaf-radicke.de - 27.1
+* Sat Aug  1  2015 briefkasten@olaf-radicke.de - 27.1
 - Bugfix in file reading operation.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 26.1
 - Bugfix in file reading operation.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 25.1
 - Include bugfix.
-* Sat Aug  1 28 2015 briefkasten@olaf-radicke.de - 24.1
+* Tue Jul 28 2015 briefkasten@olaf-radicke.de - 24.1
 - Bugfix in article list: Remove html filter.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 23.1
 - Ingratiate html statistic output from the goaccess tool.
