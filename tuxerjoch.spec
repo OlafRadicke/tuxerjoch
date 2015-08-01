@@ -36,10 +36,10 @@ ls -lah
 mkdir -p %{buildroot}/usr/local/lib/%{name}
 mkdir -p %{buildroot}/usr/lib/systemd/system/
 
-cp -Rv ./bin/*               %{buildroot}/usr/local/lib/%{name}/
-cp -v ./README.md            %{buildroot}/usr/local/lib/%{name}/
-cp -v ./LICENSE              %{buildroot}/usr/local/lib/%{name}/
-mv %{buildroot}/usr/local/lib/%{name}/%{name}.conf %{buildroot}/usr/local/lib/%{name}/%{name}.conf.sample
+cp -Rvf ./bin/*               %{buildroot}/usr/local/lib/%{name}/
+cp -vf ./README.md            %{buildroot}/usr/local/lib/%{name}/
+cp -vf ./LICENSE              %{buildroot}/usr/local/lib/%{name}/
+mv -f %{buildroot}/usr/local/lib/%{name}/%{name}.conf  %{buildroot}/usr/local/lib/%{name}/%{name}.conf.sample
 #cp -v ./tuxerjoch.service    %{buildroot}/usr/lib/systemd/system/tuxerjoch.service
 cd ..
 rm -Rvf ./tuxerjoch-master
@@ -74,7 +74,7 @@ rm -Rvf %{_builddir}/*
 
 %changelog
 * Sat Aug  1 2015 briefkasten@olaf-radicke.de - 27.1
-- Bugfix in article list: Remove html filter.
+- Bugfix in article list: Remove html filter. Using force flag by install.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 26.1
 - Bugfix in file reading operation.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 25.1
