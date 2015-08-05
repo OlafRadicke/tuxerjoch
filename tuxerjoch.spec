@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 27
+Version: 28
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Wed Aug  5 2015 briefkasten@olaf-radicke.de - 28.1
+- Add a update function for designs.
 * Sat Aug  1 2015 briefkasten@olaf-radicke.de - 27.1
 - Bugfix in article list: Remove html filter. Using force flag by install.
 * Tue Jul 28 2015 briefkasten@olaf-radicke.de - 26.1

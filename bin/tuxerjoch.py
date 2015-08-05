@@ -139,16 +139,29 @@ class Tuxerjoch:
     def check_designs( self ):
         '''Check and prepare designs'''
         response = self.couchDB.getDesignCode("blog_article")
-        blog_article_data = json.loads(response.text, 'utf8')
-        if "error" in blog_article_data:
-            if blog_article_data["error"] == "not_found":
+        blog_article_desings = json.loads(response.text, 'utf8')
+        if "error" in blog_article_desings:
+            if blog_article_desings["error"] == "not_found":
                 logging.info( "Can not found designs / views and will create this now with defaults" )
-                json_doc = '''{  \n
+                self.create_design()
+            else:
+                logging.error( "Unknown error: " )
+                logging.error( blog_article_desings["error"] + ": " + blog_article_desings["reason"] )
+        else:
+            logging.info( "Update default designs / views" )
+            self.update_design(blog_article_desings)
+
+    def update_design(self, blog_article_desings):
+        rev = blog_article_desings["_rev"]
+        json_doc = '''{  \n
     "_id": "_design/blog_article", \n
     "language": "javascript", \n
     "views": { \n
         "all": {\n
             "map": "function(doc) { if (doc.document_type == 'blog_article')  emit(doc.last_update, doc) }"\n
+        },\n
+        "draft_article": {\n
+            "map": "function(doc) { if (doc.document_type == 'draft_article')  emit(doc.last_update, doc) }"\n
         },\n
         "all_tags": {\n
             "map": "function(doc) { \
@@ -158,13 +171,40 @@ class Tuxerjoch:
         }
     }\n
 }'''
-                logging.info(json_doc)
-                response = self.couchDB.addNamedDesign( "blog_article", json_doc )
-                logging.info(response.headers)
-                logging.info(response.text)
-            else:
-                logging.error( "Unknown error: " )
-                logging.error( blog_article_data["error"] + ": " + blog_article_data["reason"] )
+        jason_class = json.loads(json_doc)
+        jason_class["_rev"] = rev
+        json_doc = simplejson.dumps(jason_class)
+        logging.info(json_doc)
+        response = self.couchDB.addNamedDesign( "blog_article", json_doc )
+        logging.info(response.headers)
+        logging.info(response.text)
+
+
+
+    def create_design(self):
+        json_doc = '''{  \n
+    "_id": "_design/blog_article", \n
+    "language": "javascript", \n
+    "views": { \n
+        "all": {\n
+            "map": "function(doc) { if (doc.document_type == 'blog_article')  emit(doc.last_update, doc) }"\n
+        },\n
+        "draft_article": {\n
+            "map": "function(doc) { if (doc.document_type == 'draft_article')  emit(doc.last_update, doc) }"\n
+        },\n
+        "all_tags": {\n
+            "map": "function(doc) { \
+                if (doc.document_type == 'blog_article') \
+                for(var idx in doc.tags) \
+                { emit('tag', doc.tags[idx])} }"\n
+        }
+    }\n
+}'''
+        logging.info(json_doc)
+        response = self.couchDB.addNamedDesign( "blog_article", json_doc )
+        logging.info(response.headers)
+        logging.info(response.text)
+
 
     def check_tag_statistics( self ):
         '''Check and prepare tag_statistics document'''
