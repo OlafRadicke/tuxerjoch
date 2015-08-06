@@ -271,6 +271,8 @@ class Tuxerjoch:
                        self.controlConf.edit_post)
         self.app.route('/delete_article', ['POST'],
                        self.controlArticleModify.delete_post)
+        self.app.route('/draft_queue', ['GET'],
+                       self.home_page.draft_queue_get)
         self.app.route('/edit_article/<name>', ['GET'],
                        self.controlArticleModify.edit_get)
         self.app.route('/edit_article', ['POST'],

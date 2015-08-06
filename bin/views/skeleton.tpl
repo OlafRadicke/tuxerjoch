@@ -48,6 +48,7 @@ Supported Level:
                 % end
                 % if authenticated == "true":
                 <li role="presentation"><a href="{{uri_prefix}}new_article">Neuer Artikel</a></li>
+                <li role="presentation"><a href="{{uri_prefix}}draft_queue">Artikel Entwürfe</a></li>
                 <li role="presentation"><a href="{{uri_prefix}}filemanagement">Bildverwaltung</a></li>
                 <li role="presentation"><a href="{{uri_prefix}}statistic">Statistik</a></li>
                 <li role="presentation"><a href="{{uri_prefix}}config">Einstellung</a></li>

@@ -105,6 +105,7 @@ class ArticleModify:
             bottle.redirect("/login")
 
         flashed_message = None
+        pub_status = bottle.request.forms.getunicode('pub_status')
         created = bottle.request.forms.getunicode('created')
         rev_id = bottle.request.forms.getunicode('rev_id')
         uri_id = bottle.request.forms.getunicode('uri_id')
@@ -118,7 +119,7 @@ class ArticleModify:
         #print( article_text )
         json_code = '{ \n'
         json_code += '"_rev": "' + rev_id + '", \n'
-        json_code += '"document_type": "blog_article", \n'
+        json_code += '"document_type": "' + pub_status + '", \n'
         json_code += '"uri_id": "' + uri_id + '", \n'
         json_code += '"title": "' + title + '", \n'
         json_code += '"teaser": ' + teaser_text + ', \n'
@@ -160,7 +161,7 @@ class ArticleModify:
             #print( article_text )
             json_code = '{ \n'
             json_code += '"_rev": "' + rev_id + '", \n'
-            json_code += '"document_type": "blog_article", \n'
+            json_code += '"document_type": "' + pub_status + '", \n'
             json_code += '"uri_id": "' + uri_id + '", \n'
             json_code += '"title": "' + title + '", \n'
             json_code += '"teaser": ' + teaser_text + ', \n'

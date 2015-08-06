@@ -1,6 +1,6 @@
 Name: tuxerjoch
 Summary: Very simple weblog software.
-Version: 28
+Version: 29
 Group: web
 License: AGPL
 Release: 1
@@ -73,6 +73,8 @@ rm -Rvf %{_builddir}/*
 
 
 %changelog
+* Thu Aug  6 2015 briefkasten@olaf-radicke.de - 29.1
+- Add a draft mode for the articles.
 * Wed Aug  5 2015 briefkasten@olaf-radicke.de - 28.1
 - Add a update function for designs.
 * Sat Aug  1 2015 briefkasten@olaf-radicke.de - 27.1

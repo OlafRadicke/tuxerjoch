@@ -3,6 +3,13 @@
     <p>
         <form action="" method="POST">
             <div class="form-group">
+                <label for="pub_status">Status:</label>
+                <select class="form-control" id="pub_status" name="pub_status">
+                  <option value="blog_article">Veröffentlicht</option>
+                  <option value="draft_article" selected>Entwurf</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="uri_id">URI-ID:</label>
                 <input
                     class="form-control"

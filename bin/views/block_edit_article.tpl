@@ -1,5 +1,5 @@
 
-    <h1>Neuer Artikel</h1>
+    <h1>Artikel bearbeiten</h1>
     <p>
         <form action="../edit_article" method="POST">
             <input
@@ -10,6 +10,19 @@
                 type="hidden"
                 name="rev_id"
                 value="{{artikle["_rev"]}}">
+            <div class="form-group">
+                <label for="pub_status">Status:</label>
+                <select class="form-control" id="pub_status" name="pub_status">
+                % if artikle["document_type"] == "blog_article":
+                  <option value="blog_article" selected>Veröffentlicht</option>
+                  <option value="draft_article">Entwurf</option>
+                % end
+                % if artikle["document_type"] == "draft_article":
+                  <option value="blog_article">Veröffentlicht</option>
+                  <option value="draft_article" selected>Entwurf</option>
+                % end
+                </select>
+            </div>
             <div class="form-group">
                 <label for="uri_id">URI-ID:</label>
                 <input

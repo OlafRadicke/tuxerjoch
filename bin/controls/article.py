@@ -40,6 +40,7 @@ class Article:
         if authenticated == None:
             bottle.redirect("/login")
         flashed_message = None
+        pub_status = bottle.request.forms.getunicode('pub_status')
         uri_id = bottle.request.forms.getunicode('uri_id')
         title = bottle.request.forms.getunicode('title')
         teaser_text = simplejson.dumps(  bottle.request.forms.getunicode('teaser_text') )
@@ -71,7 +72,7 @@ class Article:
         else:
             #print( article_text )
             json_code = '{ \n'
-            json_code += '"document_type": "blog_article", \n'
+            json_code += '"document_type": "' + pub_status + '", \n'
             json_code += '"uri_id": "' + uri_id + '", \n'
             json_code += '"title": "' + title + '", \n'
             json_code += '"teaser": ' + teaser_text + ', \n'
@@ -112,7 +113,7 @@ class Article:
             return bottle.template(
                 'skeleton',
                 uri_prefix="../",
-                title=artikle_data["title"],
+                title="Fehler",
                 authenticated=authenticated,
                 main_area=block_error)
 
