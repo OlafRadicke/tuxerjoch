@@ -38,7 +38,7 @@ class Config:
 
         html_code = bottle.template(
             'skeleton',
-            title="Neuer Artikel",
+            title="Konfiguration",
             authenticated=authenticated,
             main_area=block_edit_config)
         return html_code
