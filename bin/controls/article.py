@@ -57,7 +57,8 @@ class Article:
             uri_id = uri_id.strip()
             # Remove special characters
             uri_id = re.sub('[^a-zA-Z0-9-_*.]', '', uri_id)
-        uri_id = "blog_articel_" + uri_id
+        uri_id = str(current_time.year) + "-" + str(current_time.month) \
+                + "-" + str(current_time.day) + "_" + uri_id
         if (title == "") or (article_text == "") or (teaser_text == ""):
             block_new_article = bottle.template(
                 'block_new_article',
